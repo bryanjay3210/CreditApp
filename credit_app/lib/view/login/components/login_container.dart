@@ -1,4 +1,6 @@
+import 'package:credit_app/routes/route_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utility/const.dart';
@@ -49,7 +51,9 @@ class LoginContainer extends StatelessWidget {
               width: double.infinity,
               color: kDefaultColor,
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushNamed(RouteConstants.dashboard);
+                  },
                   child: const Text(
                     'Login',
                     style: TextStyle(color: Colors.white),

@@ -17,7 +17,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return const Scaffold(
       body: SingleChildScrollView(
         child: Stack(
-          children: [LoginHeader(), LoginContainer(), CircularIcon()],
+          children: [
+            LoginHeader(),
+            LoginContainer(),
+            CircularIcon(),
+          ],
         ),
       ),
     );
