@@ -1,6 +1,5 @@
 import 'package:credit_app/bootstrap.dart';
 import 'package:credit_app/routes/app_routes.dart';
-import 'package:credit_app/utility/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Credit App',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: kDefaultColor,
+            seedColor: Colors.red,
           ),
           useMaterial3: true,
           scaffoldBackgroundColor: Colors.white,
