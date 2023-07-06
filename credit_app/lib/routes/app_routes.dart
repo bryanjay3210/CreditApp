@@ -1,7 +1,7 @@
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/view/dashboard/dashboard.dart';
 import 'package:credit_app/view/login/login.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
@@ -11,14 +11,14 @@ class AppRoutes {
         name: RouteConstants.login,
         path: '/',
         pageBuilder: (context, state) {
-          return const MaterialPage(child: LoginScreen());
+          return const CupertinoPage(child: LoginScreen());
         },
       ),
       GoRoute(
         name: RouteConstants.dashboard,
         path: '/dashboard',
         pageBuilder: (context, state) {
-          return const MaterialPage(child: DashboardScreen());
+          return const CupertinoPage(child: DashboardScreen());
         },
       ),
     ],
