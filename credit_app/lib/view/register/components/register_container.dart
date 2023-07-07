@@ -1,23 +1,24 @@
-import 'package:credit_app/routes/route_constant.dart';
+import 'package:credit_app/utility/const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../utility/const.dart';
+class RegisterContainer extends StatefulWidget {
+  const RegisterContainer({super.key});
 
-class LoginContainer extends StatelessWidget {
-  const LoginContainer({
-    super.key,
-  });
+  @override
+  State<RegisterContainer> createState() => _RegisterContainerState();
+}
 
+class _RegisterContainerState extends State<RegisterContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 250, 20, 10),
+      padding: const EdgeInsets.fromLTRB(20, 210, 20, 10),
       child: Container(
         padding: const EdgeInsets.all(20),
-        height: 450,
+        height: 500,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -35,10 +36,22 @@ class LoginContainer extends StatelessWidget {
           children: [
             const SizedBox(height: 30),
             Text(
-              'Login',
+              'Register',
               style: GoogleFonts.montserrat(color: Colors.red, fontSize: 18),
             ),
             const SizedBox(height: 30),
+            TextFormField(
+              decoration: const InputDecoration(
+                  hintText: 'Fullname',
+                  prefixIcon: Icon(CupertinoIcons.person_alt)),
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              decoration: const InputDecoration(
+                  hintText: 'Address',
+                  prefixIcon: Icon(CupertinoIcons.location_solid)),
+            ),
+            const SizedBox(height: 10),
             TextFormField(
               decoration: const InputDecoration(
                   hintText: 'Username',
@@ -56,40 +69,22 @@ class LoginContainer extends StatelessWidget {
               width: double.infinity,
               color: kDefaultColor,
               child: TextButton(
-                  onPressed: () {
-                    context.pushNamed(RouteConstants.dashboard);
-                  },
+                  onPressed: () {},
                   child: const Text(
-                    'Login',
+                    'Register',
                     style: TextStyle(color: Colors.white),
                   )),
             ),
             const SizedBox(height: 10),
-            const Text('or'),
-            IconButton(
-                onPressed: () {},
-                icon: const Column(
-                  children: [
-                    Icon(
-                      Icons.fingerprint,
-                      size: 30,
-                    ),
-                    Text('Fingerprint Login')
-                  ],
-                )),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Not yet registered? '),
-                GestureDetector(
-                  onTap: () => context.pushNamed(RouteConstants.register),
+            Container(
+              width: double.infinity,
+              color: kDefaultColor,
+              child: TextButton(
+                  onPressed: () => context.pop(),
                   child: const Text(
-                    'Click here',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                ),
-              ],
+                    'Cancel',
+                    style: TextStyle(color: Colors.white),
+                  )),
             ),
           ],
         ),
