@@ -4,4 +4,5 @@ class RouteConstants {
   static String credit = 'credit';
   static String adjustment = 'adjustment';
   static String menu = 'menu';
+  static String register = 'register';
 }
