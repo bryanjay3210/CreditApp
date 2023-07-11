@@ -10,7 +10,7 @@ import 'package:hive/hive.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(const LoginState(isLoading: false));
+  LoginCubit() : super(const LoginState(isLoading: false, isShow: false));
 
   Future<void> authenticate(
       {required String username,
@@ -20,6 +20,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     final box = Hive.box('account');
     var accountList = box.values.toList();
+
     for (var ds in accountList) {
       Account acct = ds as Account;
       if (acct.username == username && acct.password == password) {
@@ -28,7 +29,10 @@ class LoginCubit extends Cubit<LoginState> {
         showToast(text: 'Invalid username & password!');
       }
     }
-
     emit(state.copyWith(isLoading: false));
+  }
+
+  void toggleIsShow({required bool value}) {
+    emit(state.copyWith(isShow: value));
   }
 }

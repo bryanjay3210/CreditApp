@@ -13,6 +13,7 @@ class Bootstrap {
 
     /// Open box
     await Hive.openBox('account');
+    await Hive.openBox('creditor');
   }
 
   Future getItRegister() async {
