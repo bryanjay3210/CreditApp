@@ -27,7 +27,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 height: 250,
                 width: 400,
                 child: Lottie.network(
-                    'https://assets10.lottiefiles.com/packages/lf20_jmuq5aha.json'),
+                    'https://assets10.lottiefiles.com/packages/lf20_jmuq5aha.json',
+                    repeat: true,
+                    animate: true),
               ),
             ),
             const SizedBox(
