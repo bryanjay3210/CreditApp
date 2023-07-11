@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProfileAvatar extends StatefulWidget {
@@ -18,7 +19,7 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
           ),
           CircleAvatar(
             radius: 40,
-            child: Icon(Icons.person, color: Colors.red, size: 40),
+            child: Icon(CupertinoIcons.person_alt, color: Colors.red, size: 40),
           ),
         ],
       ),

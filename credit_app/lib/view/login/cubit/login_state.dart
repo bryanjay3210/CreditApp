@@ -1,6 +1,14 @@
 part of 'login_cubit.dart';
 
-@immutable
-abstract class LoginState {}
+class LoginState extends Equatable {
+  const LoginState({required this.isLoading});
 
-class LoginInitial extends LoginState {}
+  final bool isLoading;
+
+  LoginState copyWith({bool? isLoading}) {
+    return LoginState(isLoading: isLoading ?? this.isLoading);
+  }
+
+  @override
+  List<Object?> get props => [isLoading];
+}

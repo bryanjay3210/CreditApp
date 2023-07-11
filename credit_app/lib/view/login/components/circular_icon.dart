@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CircularIcon extends StatelessWidget {
@@ -15,7 +16,7 @@ class CircularIcon extends StatelessWidget {
           ),
           CircleAvatar(
             radius: 40,
-            child: Icon(Icons.person, color: Colors.red, size: 40),
+            child: Icon(CupertinoIcons.person_alt, color: Colors.red, size: 40),
           ),
         ],
       ),

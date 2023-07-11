@@ -44,7 +44,7 @@ class MenuTile extends StatelessWidget {
               SizedBox(
                 width: 100,
                 height: 100,
-                child: Lottie.network(lottieUrl, fit: BoxFit.cover),
+                child: Lottie.network(lottieUrl),
               ),
               const SizedBox(
                 height: 20,
@@ -58,6 +58,7 @@ class MenuTile extends StatelessWidget {
               ),
               Text(
                 description,
+                textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 15, color: Colors.white),
               ),
             ],
