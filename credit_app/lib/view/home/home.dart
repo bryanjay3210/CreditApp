@@ -1,7 +1,13 @@
-import 'package:credit_app/routes/route_constant.dart';
+import 'package:credit_app/view/home/components/creditor_list.dart';
+import 'package:credit_app/view/home/cubit/creditor_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../utility/const.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,34 +17,53 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final creditorNameCtrl = TextEditingController();
+
+  @override
+  void initState() {
+    context.read<CreditorCubit>().getCreditor();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(children: [
-          TextFormField(
-            decoration: const InputDecoration(
-                prefixIcon: Icon(CupertinoIcons.search), hintText: 'Search'),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () => context.pushNamed(RouteConstants.menu),
-                    leading: const CircleAvatar(
-                        child: Icon(CupertinoIcons.person_alt)),
-                    title: Text('Person $index'),
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                    const Divider(thickness: 1),
-                itemCount: 20),
-          )
-        ]),
+      body: BlocConsumer<CreditorCubit, CreditorState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(CupertinoIcons.search),
+                    hintText: 'Search'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                  child: state.isLoading
+                      ? Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                              color: kDefaultColor, size: 40),
+                        )
+                      : state.creditorList.isEmpty
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Lottie.network(
+                                    'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json'),
+                                const Text('No data',
+                                    style: TextStyle(fontSize: 20)),
+                              ],
+                            )
+                          : CreditorList(state: state))
+            ]),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -48,25 +73,27 @@ class _HomeScreenState extends State<HomeScreen> {
               return AlertDialog(
                 title: const Text('Add creditor'),
                 content: TextFormField(
+                  controller: creditorNameCtrl,
                   decoration: const InputDecoration(hintText: 'Creditor Name'),
                 ),
                 actions: <Widget>[
                   TextButton(
                     style: TextButton.styleFrom(
-                      textStyle: Theme.of(context).textTheme.labelLarge,
+                      textStyle: Theme.of(context).textTheme.labelMedium,
                     ),
                     child: const Text('Add'),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      context.read<CreditorCubit>().addCreditor(
+                          fullname: creditorNameCtrl.text, context: context);
                     },
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
-                      textStyle: Theme.of(context).textTheme.labelLarge,
+                      textStyle: Theme.of(context).textTheme.labelMedium,
                     ),
                     child: const Text('Cancel'),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      context.pop();
                     },
                   ),
                 ],

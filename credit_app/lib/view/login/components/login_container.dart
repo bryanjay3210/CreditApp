@@ -69,12 +69,19 @@ class _LoginContainerState extends State<LoginContainer> {
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: passwordCtrl,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         hintText: 'Password',
-                        prefixIcon: Icon(CupertinoIcons.padlock_solid)),
+                        prefixIcon: const Icon(CupertinoIcons.padlock_solid),
+                        suffix: IconButton(
+                            onPressed: () => context
+                                .read<LoginCubit>()
+                                .toggleIsShow(value: !state.isShow),
+                            icon: Icon(state.isShow
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined))),
                     validator: (value) =>
                         value!.isEmpty ? 'Password is required' : null,
-                    obscureText: true,
+                    obscureText: !state.isShow ? true : false,
                   ),
                   const SizedBox(height: 20),
                   state.isLoading
