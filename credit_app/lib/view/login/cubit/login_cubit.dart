@@ -17,18 +17,22 @@ class LoginCubit extends Cubit<LoginState> {
       required String password,
       required BuildContext context}) async {
     emit(state.copyWith(isLoading: true));
-
-    final box = Hive.box('account');
-    var accountList = box.values.toList();
-
-    for (var ds in accountList) {
-      Account acct = ds as Account;
+    try {
+      final box = Hive.box('account');
+      var accountList = box.values.toList();
+      var acct = accountList
+          .where((element) => element.username == username)
+          .first as Account;
       if (acct.username == username && acct.password == password) {
-        context.replaceNamed(RouteConstants.dashboard);
+        context.pushNamed(RouteConstants.dashboard);
       } else {
-        showToast(text: 'Invalid username & password!');
+        showToast(text: 'Invalid username or password!');
       }
+    } catch (e) {
+      showToast(text: 'User is not yet register!');
+      emit(state.copyWith(isLoading: false));
     }
+
     emit(state.copyWith(isLoading: false));
   }
 
