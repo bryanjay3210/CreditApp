@@ -8,7 +8,7 @@ part of 'creditor.dart';
 
 class CreditorAdapter extends TypeAdapter<Creditor> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   Creditor read(BinaryReader reader) {
