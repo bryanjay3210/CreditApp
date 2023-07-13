@@ -1,5 +1,7 @@
 import 'package:credit_app/bootstrap.dart';
 import 'package:credit_app/routes/app_routes.dart';
+import 'package:credit_app/view/credit/cubit/credit_cubit.dart';
+import 'package:credit_app/view/credit/cubit/debit_cubit.dart';
 import 'package:credit_app/view/home/cubit/creditor_cubit.dart';
 import 'package:credit_app/view/login/cubit/login_cubit.dart';
 import 'package:credit_app/view/register/cubit/register_cubit.dart';
@@ -31,6 +33,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<CreditorCubit>(
           create: (BuildContext context) => CreditorCubit(),
+        ),
+        BlocProvider<CreditCubit>(
+          create: (BuildContext context) => CreditCubit(),
+        ),
+        BlocProvider<DebitCubit>(
+          create: (BuildContext context) => DebitCubit(),
         ),
       ],
       child: MaterialApp.router(

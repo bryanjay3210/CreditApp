@@ -85,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       context.read<CreditorCubit>().addCreditor(
                           fullname: creditorNameCtrl.text, context: context);
+                      creditorNameCtrl.clear();
                     },
                   ),
                   TextButton(

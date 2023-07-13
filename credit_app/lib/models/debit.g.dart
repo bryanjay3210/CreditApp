@@ -1,37 +1,43 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'creditor.dart';
+part of 'debit.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CreditorAdapter extends TypeAdapter<Creditor> {
+class DebitAdapter extends TypeAdapter<Debit> {
   @override
-  final int typeId = 1;
+  final int typeId = 3;
 
   @override
-  Creditor read(BinaryReader reader) {
+  Debit read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Creditor(
-      fullname: fields[0] as String,
-      userId: fields[1] as String,
-      creditorId: fields[2] as String,
+    return Debit(
+      title: fields[0] as String,
+      description: fields[1] as String,
+      amount: fields[2] as double,
+      dateStmp: fields[3] as DateTime,
+      creditorId: fields[4] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Creditor obj) {
+  void write(BinaryWriter writer, Debit obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.fullname)
+      ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.userId)
+      ..write(obj.description)
       ..writeByte(2)
+      ..write(obj.amount)
+      ..writeByte(3)
+      ..write(obj.dateStmp)
+      ..writeByte(4)
       ..write(obj.creditorId);
   }
 
@@ -41,7 +47,7 @@ class CreditorAdapter extends TypeAdapter<Creditor> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CreditorAdapter &&
+      other is DebitAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

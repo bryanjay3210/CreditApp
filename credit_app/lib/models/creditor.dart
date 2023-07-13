@@ -7,5 +7,12 @@ class Creditor {
   @HiveField(0)
   late String fullname;
 
-  Creditor({required this.fullname});
+  @HiveField(1)
+  late String userId;
+
+  @HiveField(2)
+  late String creditorId;
+
+  Creditor(
+      {required this.fullname, required this.userId, required this.creditorId});
 }

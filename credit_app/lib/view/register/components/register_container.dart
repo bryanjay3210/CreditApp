@@ -107,7 +107,13 @@ class _RegisterContainerState extends State<RegisterContainer> {
                                     address: addressCtrl.text,
                                     username: usernameCtrl.text,
                                     password: passwordCtrl.text)
-                                .then((value) => context.pop());
+                                .then((value) {
+                              fullnameCtrl.clear();
+                              addressCtrl.clear();
+                              usernameCtrl.clear();
+                              passwordCtrl.clear();
+                              context.pop();
+                            });
                           }
                         },
                         child: const Text(

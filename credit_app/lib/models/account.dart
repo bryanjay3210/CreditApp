@@ -16,9 +16,13 @@ class Account {
   @HiveField(3)
   late String password;
 
+  @HiveField(4)
+  late String userId;
+
   Account(
       {required this.fullname,
       required this.address,
       required this.username,
-      required this.password});
+      required this.password,
+      required this.userId});
 }

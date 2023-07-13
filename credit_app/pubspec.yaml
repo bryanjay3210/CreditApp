@@ -48,6 +48,7 @@ dependencies:
   logger: ^1.4.0
   fluttertoast: ^8.2.2
   loading_animation_widget: ^1.2.0+4
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/models/account.dart';
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/utility/toast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
@@ -24,6 +26,7 @@ class LoginCubit extends Cubit<LoginState> {
           .where((element) => element.username == username)
           .first as Account;
       if (acct.username == username && acct.password == password) {
+        GetIt.I<AuthHelper>().userId = acct.userId;
         context.pushNamed(RouteConstants.dashboard);
       } else {
         showToast(text: 'Invalid username or password!');
