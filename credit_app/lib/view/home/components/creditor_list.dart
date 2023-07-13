@@ -1,7 +1,9 @@
+import 'package:credit_app/helper/creditor.dart';
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/view/home/cubit/creditor_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class CreditorList extends StatelessWidget {
@@ -16,7 +18,11 @@ class CreditorList extends StatelessWidget {
     return ListView.separated(
         itemBuilder: (context, index) {
           return ListTile(
-            onTap: () => context.pushNamed(RouteConstants.menu),
+            onTap: () {
+              GetIt.I<CreditorHelper>().creditorId =
+                  state.creditorList[index].creditorId;
+              context.pushNamed(RouteConstants.menu);
+            },
             leading: const CircleAvatar(child: Icon(CupertinoIcons.person_alt)),
             subtitle: const Text('Balance: ₱1,000,000'),
             title: Text(state.creditorList[index].fullname),

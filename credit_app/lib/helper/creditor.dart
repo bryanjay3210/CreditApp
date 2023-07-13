@@ -1,0 +1,3 @@
+class CreditorHelper {
+  String creditorId = '';
+}

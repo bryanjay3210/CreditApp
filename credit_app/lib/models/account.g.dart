@@ -21,13 +21,14 @@ class AccountAdapter extends TypeAdapter<Account> {
       address: fields[1] as String,
       username: fields[2] as String,
       password: fields[3] as String,
+      userId: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Account obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.fullname)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class AccountAdapter extends TypeAdapter<Account> {
       ..writeByte(2)
       ..write(obj.username)
       ..writeByte(3)
-      ..write(obj.password);
+      ..write(obj.password)
+      ..writeByte(4)
+      ..write(obj.userId);
   }
 
   @override

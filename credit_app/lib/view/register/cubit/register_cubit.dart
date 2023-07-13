@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:credit_app/models/account.dart';
-import 'package:credit_app/utility/logger.dart';
 import 'package:credit_app/utility/toast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 
 part 'register_state.dart';
 
@@ -24,16 +24,17 @@ class RegisterCubit extends Cubit<RegisterState> {
   }) async {
     emit(state.copyWith(isLoading: true));
     final box = Hive.box('account');
+    var uuid = const Uuid();
 
     box.add(Account(
         fullname: fullname,
         address: address,
         username: username,
-        password: password));
+        password: password,
+        userId: uuid.v1()));
 
-    showToast(text: 'Success!');
+    showToast(text: 'Successfully Registered!');
 
-    logThis(text: box.length.toString());
     emit(state.copyWith(isLoading: false));
   }
 }

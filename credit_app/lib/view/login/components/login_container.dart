@@ -95,10 +95,16 @@ class _LoginContainerState extends State<LoginContainer> {
                           child: TextButton(
                               onPressed: () {
                                 if (loginKey.currentState!.validate()) {
-                                  context.read<LoginCubit>().authenticate(
-                                      username: usernameCtrl.text,
-                                      password: passwordCtrl.text,
-                                      context: context);
+                                  context
+                                      .read<LoginCubit>()
+                                      .authenticate(
+                                          username: usernameCtrl.text,
+                                          password: passwordCtrl.text,
+                                          context: context)
+                                      .then((value) {
+                                    usernameCtrl.clear();
+                                    passwordCtrl.clear();
+                                  });
                                 }
                               },
                               child: const Text(
