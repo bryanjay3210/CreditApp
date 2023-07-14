@@ -21,12 +21,14 @@ class CreditorList extends StatelessWidget {
             onTap: () {
               GetIt.I<CreditorHelper>().creditorId =
                   state.creditorList[index].creditorId;
+              GetIt.I<CreditorHelper>().creditorIndex = index;
               context.pushNamed(RouteConstants.menu);
             },
             leading: const CircleAvatar(child: Icon(CupertinoIcons.person_alt)),
-            subtitle: const Text('Balance: ₱1,000,000'),
+            subtitle:
+                Text('Balance: ₱ ${state.creditorList[index].totalBalance}'),
             title: Text(state.creditorList[index].fullname),
-            trailing: const Text('Unpaid'),
+            // trailing: const Text('Unpaid'),
           );
         },
         separatorBuilder: (context, index) => const Divider(thickness: 1),

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:credit_app/helper/creditor.dart';
 import 'package:credit_app/models/debit.dart';
+import 'package:credit_app/utility/balance.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -23,6 +24,7 @@ class DebitCubit extends Cubit<DebitState> {
         amount: amount,
         dateStmp: DateTime.now(),
         creditorId: GetIt.I<CreditorHelper>().creditorId));
+    updateCreditorTotalBalance();
     emit(state.copyWith(isLoading: false));
   }
 

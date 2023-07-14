@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'account.g.dart';
 
 @HiveType(typeId: 0)
-class Account {
+class Account extends HiveObject {
   @HiveField(0)
   late String fullname;
 

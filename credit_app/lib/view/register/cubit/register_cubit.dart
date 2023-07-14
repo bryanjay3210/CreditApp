@@ -14,7 +14,8 @@ class RegisterCubit extends Cubit<RegisterState> {
             address: '',
             username: '',
             password: '',
-            isLoading: false));
+            isLoading: false,
+            isShow: false));
 
   Future<void> registerAccount({
     required String fullname,
@@ -36,5 +37,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     showToast(text: 'Successfully Registered!');
 
     emit(state.copyWith(isLoading: false));
+  }
+
+  void toggleIsShow({required bool value}) {
+    emit(state.copyWith(isShow: value));
   }
 }
