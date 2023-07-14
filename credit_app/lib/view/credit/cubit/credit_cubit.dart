@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:credit_app/helper/creditor.dart';
 import 'package:credit_app/models/credit.dart';
+import 'package:credit_app/utility/balance.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -17,6 +18,7 @@ class CreditCubit extends Cubit<CreditState> {
       required String description,
       required double amount}) async {
     emit(state.copyWith(isLoading: true));
+
     final box = Hive.box('credit');
     box.add(Credit(
         title: title,
@@ -24,6 +26,7 @@ class CreditCubit extends Cubit<CreditState> {
         amount: amount,
         dateStmp: DateTime.now(),
         creditorId: GetIt.I<CreditorHelper>().creditorId));
+    updateCreditorTotalBalance();
     emit(state.copyWith(isLoading: false));
   }
 

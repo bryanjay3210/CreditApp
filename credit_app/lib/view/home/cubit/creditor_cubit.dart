@@ -21,7 +21,8 @@ class CreditorCubit extends Cubit<CreditorState> {
     box.add(Creditor(
         fullname: fullname,
         userId: GetIt.I<AuthHelper>().userId,
-        creditorId: uuid.v1()));
+        creditorId: uuid.v1(),
+        totalBalance: 0));
     getCreditor();
     context.pop();
     showToast(text: 'Success!');

@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'credit.g.dart';
 
 @HiveType(typeId: 2)
-class Credit {
+class Credit extends HiveObject {
   @HiveField(0)
   late String title;
 
