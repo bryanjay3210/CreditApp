@@ -1,3 +1,4 @@
+import 'package:credit_app/helper/formatter.dart';
 import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/credit/cubit/credit_cubit.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,8 +65,10 @@ class _CreditState extends State<Credit> {
                           leading: const CircleAvatar(
                               child: Icon(CupertinoIcons.person_alt)),
                           title: Text(credit.title),
-                          subtitle: Text(credit.dateStmp.toString()),
-                          trailing: Text(credit.amount.toString()),
+                          subtitle:
+                              Text(Formatter().formatDateTime(credit.dateStmp)),
+                          trailing:
+                              Text(Formatter().formatCurrency(credit.amount)),
                         );
                       },
                       separatorBuilder: (context, index) =>
