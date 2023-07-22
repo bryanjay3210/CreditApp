@@ -1,7 +1,8 @@
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/view/adjustment/adjustment.dart';
 import 'package:credit_app/view/credit/credit.dart';
-import 'package:credit_app/view/dashboard/dashboard.dart';
+import 'package:credit_app/view/creditor/creditor.dart';
+import 'package:credit_app/view/drawer/drawer.dart';
 import 'package:credit_app/view/login/login.dart';
 import 'package:credit_app/view/menu/menu.dart';
 import 'package:credit_app/view/register/register.dart';
@@ -22,7 +23,7 @@ class AppRoutes {
         name: RouteConstants.dashboard,
         path: '/dashboard',
         pageBuilder: (context, state) {
-          return const CupertinoPage(child: DashboardScreen());
+          return const CupertinoPage(child: DrawerScreen());
         },
       ),
       GoRoute(
@@ -30,6 +31,13 @@ class AppRoutes {
         path: '/credit',
         pageBuilder: (context, state) {
           return const CupertinoPage(child: CreditScreen());
+        },
+      ),
+      GoRoute(
+        name: RouteConstants.creditor,
+        path: '/creditor',
+        pageBuilder: (context, state) {
+          return const CupertinoPage(child: CreditorScreen());
         },
       ),
       GoRoute(

@@ -51,7 +51,7 @@ class MenuTile extends StatelessWidget {
               ),
               Text(
                 title,
-                style: const TextStyle(fontSize: 20, color: Colors.white),
+                style: const TextStyle(fontSize: 16, color: Colors.white),
               ),
               const SizedBox(
                 height: 10,
@@ -59,7 +59,7 @@ class MenuTile extends StatelessWidget {
               Text(
                 description,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 15, color: Colors.white),
+                style: const TextStyle(fontSize: 13, color: Colors.white),
               ),
             ],
           ),

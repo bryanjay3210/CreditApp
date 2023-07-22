@@ -1,6 +1,6 @@
 import 'package:credit_app/helper/creditor.dart';
 import 'package:credit_app/routes/route_constant.dart';
-import 'package:credit_app/view/home/cubit/creditor_cubit.dart';
+import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';

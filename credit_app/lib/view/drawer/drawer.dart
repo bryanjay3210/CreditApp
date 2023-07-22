@@ -6,14 +6,14 @@ import 'package:credit_app/view/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class DrawerScreen extends StatefulWidget {
+  const DrawerScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<DrawerScreen> createState() => _DrawerScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DrawerScreenState extends State<DrawerScreen> {
   List<ScreenHiddenDrawer> screens = [
     ScreenHiddenDrawer(
         ItemHiddenMenu(
