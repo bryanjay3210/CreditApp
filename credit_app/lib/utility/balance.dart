@@ -14,6 +14,7 @@ void updateCreditorTotalBalance() {
       .where((element) =>
           element.creditorId == GetIt.I<CreditorHelper>().creditorId)
       .first as Creditor;
-  creditor.totalBalance = getTotalCredit() - getTotalDebit();
+  creditor.totalBalance = getTotalCredit(GetIt.I<CreditorHelper>().creditorId) -
+      getTotalDebit(GetIt.I<CreditorHelper>().creditorId);
   creditor.save();
 }
