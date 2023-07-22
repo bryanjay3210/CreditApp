@@ -1,3 +1,4 @@
+import 'package:credit_app/helper/formatter.dart';
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/home/cubit/home_cubit.dart';
@@ -14,6 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    context.read<HomeCubit>().computeTotal();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Text(
                                   state.isShow
-                                      ? 'P 1,000,000,000'
+                                      ? Formatter()
+                                          .formatCurrency(state.totalCredit)
                                       : '***************',
                                   style: const TextStyle(
                                       color: Colors.white,
@@ -101,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Text(
                                   state.isShow
-                                      ? 'P 1,000,000,000'
+                                      ? Formatter()
+                                          .formatCurrency(state.totalDebit)
                                       : '***************',
                                   style: const TextStyle(
                                       color: Colors.white,
@@ -129,7 +138,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     GestureDetector(
-                      onTap: () => context.pushNamed(RouteConstants.creditor),
+                      onTap: () => context
+                          .pushNamed(RouteConstants.creditor)
+                          .then((value) =>
+                              context.read<HomeCubit>().computeTotal()),
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         child: Column(
