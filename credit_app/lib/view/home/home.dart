@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     context.read<HomeCubit>().computeTotal();
     context.read<HomeCubit>().getUser();
+    context.read<HomeCubit>().getTransactionHistory();
     super.initState();
   }
 
@@ -145,8 +148,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           GestureDetector(
                             onTap: () => context
                                 .pushNamed(RouteConstants.creditor)
-                                .then((value) =>
-                                    context.read<HomeCubit>().computeTotal()),
+                                .then((value) {
+                              context.read<HomeCubit>().computeTotal();
+                              context.read<HomeCubit>().getTransactionHistory();
+                            }),
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               child: Column(
@@ -173,20 +178,46 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Expanded(
-                        child: ListView.separated(
-                            itemBuilder: (context, index) {
-                              return const ListTile(
-                                leading:
-                                    Icon(CupertinoIcons.person_alt, size: 30),
-                                title: Text('Creditor'),
-                                subtitle: Text('Date'),
-                                trailing: Text('P 1,000,000'),
-                              );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const Divider(),
-                            itemCount: 20))
+                    state.isLoading
+                        ? Center(
+                            child: LoadingAnimationWidget.staggeredDotsWave(
+                                color: kDefaultColor, size: 40),
+                          )
+                        : state.transactionHistory.isEmpty
+                            ? SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Lottie.network(
+                                        'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json'),
+                                    const Text('No data',
+                                        style: TextStyle(fontSize: 20)),
+                                  ],
+                                ),
+                              )
+                            : Expanded(
+                                child: ListView.separated(
+                                    itemBuilder: (context, index) {
+                                      var th = state.transactionHistory[index];
+                                      return ListTile(
+                                        leading: const Icon(
+                                            CupertinoIcons.person_alt,
+                                            size: 30),
+                                        title: Text(th.creditor),
+                                        subtitle: Text(Formatter()
+                                            .formatDateTime(th.dateStmp)),
+                                        trailing: Text(
+                                            Formatter()
+                                                .formatCurrency(th.amount),
+                                            style: TextStyle(
+                                                color: th.isCredit
+                                                    ? kDefaultColor
+                                                    : Colors.green)),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        const Divider(),
+                                    itemCount: state.transactionHistory.length))
                   ]),
             ),
           );
