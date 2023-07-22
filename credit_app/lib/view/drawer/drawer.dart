@@ -2,7 +2,6 @@ import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/about/about.dart';
 import 'package:credit_app/view/home/home.dart';
 import 'package:credit_app/view/profile/profile.dart';
-import 'package:credit_app/view/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 
@@ -23,14 +22,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
           colorLineSelected: Colors.white,
         ),
         const HomeScreen()),
-    ScreenHiddenDrawer(
-        ItemHiddenMenu(
-          selectedStyle: const TextStyle(),
-          name: 'Settings',
-          baseStyle: const TextStyle(fontSize: 20, color: Colors.white),
-          colorLineSelected: Colors.white,
-        ),
-        const SettingsScreen()),
+    // ScreenHiddenDrawer(
+    //     ItemHiddenMenu(
+    //       selectedStyle: const TextStyle(),
+    //       name: 'Settings',
+    //       baseStyle: const TextStyle(fontSize: 20, color: Colors.white),
+    //       colorLineSelected: Colors.white,
+    //     ),
+    //     const SettingsScreen()),
     ScreenHiddenDrawer(
         ItemHiddenMenu(
           selectedStyle: const TextStyle(),

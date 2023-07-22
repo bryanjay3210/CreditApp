@@ -10,12 +10,15 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Padding(
-          padding: EdgeInsets.all(20),
-          child: Center(
-            child: Text('About'),
-          )),
+    return Scaffold(
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: const Padding(
+            padding: EdgeInsets.all(20),
+            child: Center(
+              child: Text('About'),
+            )),
+      ),
     );
   }
 }

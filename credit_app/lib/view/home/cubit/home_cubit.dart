@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:credit_app/helper/auth.dart';
+import 'package:credit_app/models/account.dart';
 import 'package:credit_app/models/creditor.dart';
 import 'package:credit_app/utility/credit.dart';
 import 'package:credit_app/utility/debit.dart';
@@ -11,7 +12,8 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit()
-      : super(const HomeState(isShow: false, totalCredit: 0, totalDebit: 0));
+      : super(const HomeState(
+            isShow: false, totalCredit: 0, totalDebit: 0, fullname: ''));
 
   Future<void> computeTotal() async {
     emit(state.copyWith(totalCredit: 0, totalDebit: 0));
@@ -30,6 +32,16 @@ class HomeCubit extends Cubit<HomeState> {
       totalDebit += getTotalDebit(creditor.creditorId);
     }
     emit(state.copyWith(totalCredit: totalCredit, totalDebit: totalDebit));
+  }
+
+  Future<void> getUser() async {
+    emit(state.copyWith(fullname: ''));
+    var user = Hive.box('account')
+        .values
+        .toList()
+        .where((element) => element.userId == GetIt.I<AuthHelper>().userId)
+        .first as Account;
+    emit(state.copyWith(fullname: user.fullname));
   }
 
   void toogleIsShow() {
