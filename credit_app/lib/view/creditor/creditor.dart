@@ -18,6 +18,7 @@ class CreditorScreen extends StatefulWidget {
 
 class _CreditorScreenState extends State<CreditorScreen> {
   final creditorNameCtrl = TextEditingController();
+  final searchCtrl = TextEditingController();
 
   @override
   void initState() {
@@ -42,9 +43,12 @@ class _CreditorScreenState extends State<CreditorScreen> {
                   height: 10,
                 ),
                 TextFormField(
+                  controller: searchCtrl,
                   decoration: const InputDecoration(
                       prefixIcon: Icon(CupertinoIcons.search),
                       hintText: 'Search'),
+                  onChanged: (value) =>
+                      context.read<CreditorCubit>().searchCreditor(value),
                 ),
                 const SizedBox(
                   height: 10,

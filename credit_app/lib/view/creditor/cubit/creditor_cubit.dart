@@ -40,4 +40,21 @@ class CreditorCubit extends Cubit<CreditorState> {
     }
     emit(state.copyWith(isLoading: false, creditorList: creditorList));
   }
+
+  Future<void> searchCreditor(String value) async {
+    emit(state.copyWith(creditorList: [], isLoading: true));
+    List<Creditor> creditorList = [];
+    final box = Hive.box('creditor');
+    var creditors = box.values.toList().where((element) => element.fullname
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase()));
+    for (var ds in creditors) {
+      Creditor cred = ds as Creditor;
+      if (cred.userId == GetIt.I<AuthHelper>().userId) {
+        creditorList.add(cred);
+      }
+    }
+    emit(state.copyWith(isLoading: false, creditorList: creditorList));
+  }
 }
