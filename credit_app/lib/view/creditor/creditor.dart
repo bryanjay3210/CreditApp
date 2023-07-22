@@ -36,12 +36,9 @@ class _CreditorScreenState extends State<CreditorScreen> {
         },
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
                 TextFormField(
                   controller: searchCtrl,
                   decoration: const InputDecoration(

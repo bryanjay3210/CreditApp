@@ -1,3 +1,4 @@
+import 'package:credit_app/helper/formatter.dart';
 import 'package:credit_app/view/credit/cubit/debit_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,8 +66,10 @@ class _DebitState extends State<Debit> {
                           leading: const CircleAvatar(
                               child: Icon(CupertinoIcons.person_alt)),
                           title: Text(debit.title),
-                          subtitle: Text(debit.dateStmp.toString()),
-                          trailing: Text('P ${debit.amount}'),
+                          subtitle:
+                              Text(Formatter().formatDateTime(debit.dateStmp)),
+                          trailing:
+                              Text(Formatter().formatCurrency(debit.amount)),
                         );
                       },
                       separatorBuilder: (context, index) =>

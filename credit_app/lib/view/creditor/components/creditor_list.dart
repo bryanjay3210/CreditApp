@@ -1,4 +1,5 @@
 import 'package:credit_app/helper/creditor.dart';
+import 'package:credit_app/helper/formatter.dart';
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,8 +26,8 @@ class CreditorList extends StatelessWidget {
               context.pushNamed(RouteConstants.menu);
             },
             leading: const CircleAvatar(child: Icon(CupertinoIcons.person_alt)),
-            subtitle:
-                Text('Balance: ₱ ${state.creditorList[index].totalBalance}'),
+            trailing: Text(Formatter()
+                .formatCurrency(state.creditorList[index].totalBalance)),
             title: Text(state.creditorList[index].fullname),
             // trailing: const Text('Unpaid'),
           );
