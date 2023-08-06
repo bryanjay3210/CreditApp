@@ -1,5 +1,6 @@
 import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/helper/creditor.dart';
+import 'package:credit_app/helper/image_helper.dart';
 import 'package:credit_app/models/account.dart';
 import 'package:credit_app/models/credit.dart';
 import 'package:credit_app/models/creditor.dart';
@@ -30,5 +31,6 @@ class Bootstrap {
     GetIt.I.registerSingleton<AppRoutes>(AppRoutes());
     GetIt.I.registerSingleton<AuthHelper>(AuthHelper());
     GetIt.I.registerSingleton<CreditorHelper>(CreditorHelper());
+    GetIt.I.registerSingleton<ImageHelper>(ImageHelper());
   }
 }
