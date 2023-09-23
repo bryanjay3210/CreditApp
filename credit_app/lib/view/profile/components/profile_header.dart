@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginHeader extends StatelessWidget {
-  const LoginHeader({
-    super.key,
-  });
+class ProfileHeader extends StatefulWidget {
+  const ProfileHeader({super.key});
 
+  @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,15 +29,11 @@ class LoginHeader extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 20,
+              height: 60,
             ),
-            SizedBox(
-                height: 160,
-                width: 200,
-                child: Image.asset('assets/credit.png')),
             Text(
-              'Welcome to Credit App!',
-              style: GoogleFonts.montserrat(color: Colors.white, fontSize: 20),
+              'Profile',
+              style: GoogleFonts.montserrat(color: Colors.white, fontSize: 30),
             ),
           ],
         ),

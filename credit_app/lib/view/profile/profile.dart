@@ -1,6 +1,9 @@
-import 'package:credit_app/routes/route_constant.dart';
+import 'package:credit_app/view/profile/components/profile_container.dart';
+import 'package:credit_app/view/profile/components/profile_header.dart';
+import 'package:credit_app/view/profile/cubit/profile_cubit.dart';
+import 'package:credit_app/view/register/components/profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,14 +17,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Center(
-              child: ElevatedButton(
-                  onPressed: () => context.pushNamed(RouteConstants.login),
-                  child: const Text('Logout')),
-            )),
+      child: const Scaffold(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              ProfileHeader(),
+              ProfileContainer(),
+              ProfileAvatar(
+                height: 110,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

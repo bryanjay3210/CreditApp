@@ -16,7 +16,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit()
       : super(const HomeState(
-            isShow: false,
+            isShow: true,
             totalCredit: 0,
             totalDebit: 0,
             fullname: '',

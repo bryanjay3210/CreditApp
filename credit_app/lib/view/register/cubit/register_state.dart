@@ -7,7 +7,8 @@ class RegisterState extends Equatable {
       required this.username,
       required this.password,
       required this.isLoading,
-      required this.isShow});
+      required this.isShow,
+      this.image});
 
   final String fullname;
   final String address;
@@ -15,6 +16,7 @@ class RegisterState extends Equatable {
   final String password;
   final bool isLoading;
   final bool isShow;
+  final File? image;
 
   RegisterState copyWith(
       {String? fullname,
@@ -22,17 +24,19 @@ class RegisterState extends Equatable {
       String? username,
       String? password,
       bool? isLoading,
-      bool? isShow}) {
+      bool? isShow,
+      File? image}) {
     return RegisterState(
         fullname: fullname ?? this.fullname,
         address: address ?? this.address,
         username: username ?? this.username,
         password: password ?? this.password,
         isLoading: isLoading ?? this.isLoading,
-        isShow: isShow ?? this.isShow);
+        isShow: isShow ?? this.isShow,
+        image: image);
   }
 
   @override
   List<Object?> get props =>
-      [fullname, address, username, password, isLoading, isShow];
+      [fullname, address, username, password, isLoading, isShow, image];
 }

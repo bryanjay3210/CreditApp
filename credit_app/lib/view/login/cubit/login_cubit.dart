@@ -27,6 +27,7 @@ class LoginCubit extends Cubit<LoginState> {
           .first as Account;
       if (acct.username == username && acct.password == password) {
         GetIt.I<AuthHelper>().userId = acct.userId;
+        GetIt.I<AuthHelper>().account = acct;
         context.pushNamed(RouteConstants.dashboard);
       } else {
         showToast(text: 'Invalid username or password!');

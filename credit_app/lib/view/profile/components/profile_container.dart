@@ -1,22 +1,19 @@
 import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/utility/const.dart';
-import 'package:credit_app/view/register/cubit/register_cubit.dart';
+import 'package:credit_app/view/profile/cubit/profile_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class RegisterContainer extends StatefulWidget {
-  const RegisterContainer({super.key});
+class ProfileContainer extends StatefulWidget {
+  const ProfileContainer({super.key});
 
   @override
-  State<RegisterContainer> createState() => _RegisterContainerState();
+  State<ProfileContainer> createState() => _ProfileContainerState();
 }
 
-class _RegisterContainerState extends State<RegisterContainer> {
+class _ProfileContainerState extends State<ProfileContainer> {
   final fullnameCtrl = TextEditingController();
   final addressCtrl = TextEditingController();
   final usernameCtrl = TextEditingController();
@@ -24,8 +21,13 @@ class _RegisterContainerState extends State<RegisterContainer> {
   final registerKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    fullnameCtrl.text = GetIt.I<AuthHelper>().account!.fullname;
+    addressCtrl.text = GetIt.I<AuthHelper>().account!.address;
+    usernameCtrl.text = GetIt.I<AuthHelper>().account!.username;
+    passwordCtrl.text = GetIt.I<AuthHelper>().account!.password;
+
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 210, 20, 10),
+      padding: const EdgeInsets.fromLTRB(20, 150, 20, 10),
       child: Form(
         key: registerKey,
         child: Container(
@@ -43,19 +45,13 @@ class _RegisterContainerState extends State<RegisterContainer> {
               ),
             ],
           ),
-          child: BlocConsumer<RegisterCubit, RegisterState>(
+          child: BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) {
               // TODO: implement listener
             },
             builder: (context, state) {
               return Column(
                 children: [
-                  const SizedBox(height: 30),
-                  Text(
-                    'Register',
-                    style:
-                        GoogleFonts.montserrat(color: Colors.red, fontSize: 18),
-                  ),
                   const SizedBox(height: 30),
                   TextFormField(
                     controller: fullnameCtrl,
@@ -83,7 +79,6 @@ class _RegisterContainerState extends State<RegisterContainer> {
                     validator: (value) =>
                         value!.isEmpty ? 'username is required' : null,
                   ),
-                  // const SizedBox(height: 10),
                   TextFormField(
                     controller: passwordCtrl,
                     decoration: InputDecoration(
@@ -91,7 +86,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
                         prefixIcon: const Icon(CupertinoIcons.padlock_solid),
                         suffix: IconButton(
                             onPressed: () => context
-                                .read<RegisterCubit>()
+                                .read<ProfileCubit>()
                                 .toggleIsShow(value: !state.isShow),
                             icon: Icon(state.isShow
                                 ? Icons.visibility_outlined
@@ -100,49 +95,30 @@ class _RegisterContainerState extends State<RegisterContainer> {
                         value!.isEmpty ? 'Password is required' : null,
                     obscureText: !state.isShow ? true : false,
                   ),
-                  const SizedBox(height: 20),
-                  state.isLoading
-                      ? Center(
-                          child: LoadingAnimationWidget.staggeredDotsWave(
-                              color: kDefaultColor, size: 40),
-                        )
-                      : Container(
-                          width: double.infinity,
-                          color: kDefaultColor,
-                          child: TextButton(
-                              onPressed: () {
-                                if (registerKey.currentState!.validate()) {
-                                  context
-                                      .read<RegisterCubit>()
-                                      .registerAccount(
-                                          fullname: fullnameCtrl.text,
-                                          address: addressCtrl.text,
-                                          username: usernameCtrl.text,
-                                          password: passwordCtrl.text,
-                                          img: GetIt.I<AuthHelper>().image)
-                                      .then((value) {
-                                    fullnameCtrl.clear();
-                                    addressCtrl.clear();
-                                    usernameCtrl.clear();
-                                    passwordCtrl.clear();
-                                    GetIt.I<AuthHelper>().image = null;
-                                    context.pop();
-                                  });
-                                }
-                              },
-                              child: const Text(
-                                'Register',
-                                style: TextStyle(color: Colors.white),
-                              )),
-                        ),
-                  const SizedBox(height: 10),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Container(
                     width: double.infinity,
                     color: kDefaultColor,
                     child: TextButton(
-                        onPressed: () => context.pop(),
+                        onPressed: () {},
                         child: const Text(
-                          'Cancel',
+                          'Update Profile',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    color: kDefaultColor,
+                    child: TextButton(
+                        onPressed: () =>
+                            context.read<ProfileCubit>().logout(context),
+                        child: const Text(
+                          'Logout',
                           style: TextStyle(color: Colors.white),
                         )),
                   ),

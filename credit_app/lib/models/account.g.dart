@@ -22,13 +22,14 @@ class AccountAdapter extends TypeAdapter<Account> {
       username: fields[2] as String,
       password: fields[3] as String,
       userId: fields[4] as String,
+      imageBase64: fields[5] as Uint8List?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Account obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.fullname)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class AccountAdapter extends TypeAdapter<Account> {
       ..writeByte(3)
       ..write(obj.password)
       ..writeByte(4)
-      ..write(obj.userId);
+      ..write(obj.userId)
+      ..writeByte(5)
+      ..write(obj.imageBase64);
   }
 
   @override

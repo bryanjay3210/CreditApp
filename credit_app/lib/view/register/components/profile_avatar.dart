@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/helper/image_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,20 +9,20 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileAvatar extends StatefulWidget {
-  const ProfileAvatar({super.key});
+  const ProfileAvatar({super.key, this.height});
+  final double? height;
   @override
   State<ProfileAvatar> createState() => _ProfileAvatarState();
 }
 
 class _ProfileAvatarState extends State<ProfileAvatar> {
-  File? image;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: [
-          const SizedBox(
-            height: 170,
+          SizedBox(
+            height: widget.height,
           ),
           GestureDetector(
             onTap: () async {
@@ -41,7 +42,8 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
                                     .cropImage(file: res!)
                                     .then((value) {
                                   setState(() {
-                                    image = File(value!.path);
+                                    GetIt.I<AuthHelper>().image =
+                                        File(value!.path);
                                   });
                                   context.pop();
                                 });
@@ -63,7 +65,8 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
                                     .cropImage(file: res!)
                                     .then((value) {
                                   setState(() {
-                                    image = File(value!.path);
+                                    GetIt.I<AuthHelper>().image =
+                                        File(value!.path);
                                   });
                                   context.pop();
                                 });
@@ -84,7 +87,7 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
             },
             child: FittedBox(
               fit: BoxFit.contain,
-              child: image == null
+              child: GetIt.I<AuthHelper>().image == null
                   ? const CircleAvatar(
                       radius: 40,
                       child: Icon(CupertinoIcons.person_alt,
@@ -92,7 +95,7 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
                     )
                   : CircleAvatar(
                       radius: 40,
-                      backgroundImage: FileImage(image!),
+                      backgroundImage: FileImage(GetIt.I<AuthHelper>().image!),
                     ),
             ),
           ),
