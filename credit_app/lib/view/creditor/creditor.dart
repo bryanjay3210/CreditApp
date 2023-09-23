@@ -57,14 +57,18 @@ class _CreditorScreenState extends State<CreditorScreen> {
                                 color: kDefaultColor, size: 40),
                           )
                         : state.creditorList.isEmpty
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Lottie.network(
-                                      'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json'),
-                                  const Text('No data',
-                                      style: TextStyle(fontSize: 20)),
-                                ],
+                            ? Center(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Lottie.network(
+                                          'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json'),
+                                      const Text('No data',
+                                          style: TextStyle(fontSize: 20)),
+                                    ],
+                                  ),
+                                ),
                               )
                             : CreditorList(state: state))
               ],

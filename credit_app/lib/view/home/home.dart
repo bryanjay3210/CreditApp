@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -184,9 +185,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: kDefaultColor, size: 40),
                               )
                             : state.transactionHistory.isEmpty
-                                ? const Center(
-                                    child: Text('No data',
-                                        style: TextStyle(fontSize: 20)),
+                                ? Center(
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Lottie.network(
+                                              'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json',
+                                              height: 250),
+                                          const Text('No data.',
+                                              style: TextStyle(fontSize: 18)),
+                                        ],
+                                      ),
+                                    ),
                                   )
                                 : ListView.separated(
                                     itemBuilder: (context, index) {

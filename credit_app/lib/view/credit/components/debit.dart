@@ -45,13 +45,15 @@ class _DebitState extends State<Debit> {
             }
             if (!state.isLoading && state.debitList.isEmpty) {
               return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.network(
-                        'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json'),
-                    const Text('No data', style: TextStyle(fontSize: 20)),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.network(
+                          'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json'),
+                      const Text('No data', style: TextStyle(fontSize: 20)),
+                    ],
+                  ),
                 ),
               );
             }
