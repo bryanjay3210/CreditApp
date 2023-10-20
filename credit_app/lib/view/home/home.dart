@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 20,
                     ),
                     Text(
-                      'Transaction',
+                      'Menu',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     SizedBox(
