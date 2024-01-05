@@ -1,2 +1,2 @@
 # CreditApp
-Credit Logging Application
+Credit Logging/Monitoring Application
