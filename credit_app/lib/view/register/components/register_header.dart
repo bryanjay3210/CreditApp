@@ -1,3 +1,4 @@
+import 'package:credit_app/utility/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +15,7 @@ class _RegisterHeaderState extends State<RegisterHeader> {
     return Container(
       height: 300,
       decoration: BoxDecoration(
-        color: const Color(0xffE13245),
+        color: kPrimaryColor,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),

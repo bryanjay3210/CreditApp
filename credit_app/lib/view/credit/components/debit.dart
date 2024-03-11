@@ -20,7 +20,7 @@ class _DebitState extends State<Debit> {
   final titleCtrl = TextEditingController();
   final descriptionCtrl = TextEditingController();
   final amountCtrl = TextEditingController();
-
+  final debitKey = GlobalKey<FormState>();
   @override
   void initState() {
     context.read<DebitCubit>().getDebitList();
@@ -40,7 +40,7 @@ class _DebitState extends State<Debit> {
             if (state.isLoading) {
               return Center(
                 child: LoadingAnimationWidget.staggeredDotsWave(
-                    color: kDefaultColor, size: 40),
+                    color: kPrimaryColor, size: 40),
               );
             }
             if (!state.isLoading && state.debitList.isEmpty) {
@@ -49,9 +49,9 @@ class _DebitState extends State<Debit> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Lottie.network(
-                          'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json'),
-                      const Text('No data', style: TextStyle(fontSize: 20)),
+                      Lottie.asset('assets/empty.json'),
+                      const Text('No debit found',
+                          style: TextStyle(fontSize: 20)),
                     ],
                   ),
                 ),
@@ -100,12 +100,11 @@ class _DebitState extends State<Debit> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            final formKey = GlobalKey<FormState>();
             showDialog<void>(
               context: context,
               builder: (BuildContext context) {
                 return Form(
-                  key: formKey,
+                  key: debitKey,
                   child: AlertDialog(
                     title: const Text('Add Debit'),
                     content: Column(
@@ -138,7 +137,7 @@ class _DebitState extends State<Debit> {
                         ),
                         child: const Text('Add'),
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
+                          if (debitKey.currentState!.validate()) {
                             context
                                 .read<DebitCubit>()
                                 .addDebit(

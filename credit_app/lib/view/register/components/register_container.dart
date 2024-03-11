@@ -53,8 +53,8 @@ class _RegisterContainerState extends State<RegisterContainer> {
                   const SizedBox(height: 30),
                   Text(
                     'Register',
-                    style:
-                        GoogleFonts.montserrat(color: Colors.red, fontSize: 18),
+                    style: GoogleFonts.montserrat(
+                        color: kPrimaryColor, fontSize: 18),
                   ),
                   const SizedBox(height: 30),
                   TextFormField(
@@ -104,17 +104,18 @@ class _RegisterContainerState extends State<RegisterContainer> {
                   state.isLoading
                       ? Center(
                           child: LoadingAnimationWidget.staggeredDotsWave(
-                              color: kDefaultColor, size: 40),
+                              color: kPrimaryColor, size: 40),
                         )
                       : Container(
                           width: double.infinity,
-                          color: kDefaultColor,
+                          color: kPrimaryColor,
                           child: TextButton(
                               onPressed: () {
                                 if (registerKey.currentState!.validate()) {
                                   context
                                       .read<RegisterCubit>()
                                       .registerAccount(
+                                          context: context,
                                           fullname: fullnameCtrl.text,
                                           address: addressCtrl.text,
                                           username: usernameCtrl.text,
@@ -138,7 +139,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
                   const SizedBox(height: 10),
                   Container(
                     width: double.infinity,
-                    color: kDefaultColor,
+                    color: kPrimaryColor,
                     child: TextButton(
                         onPressed: () => context.pop(),
                         child: const Text(

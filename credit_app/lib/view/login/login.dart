@@ -14,14 +14,17 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            LoginHeader(),
-            LoginContainer(),
-            CircularIcon(),
-          ],
+    return const PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              LoginHeader(),
+              LoginContainer(),
+              CircularIcon(),
+            ],
+          ),
         ),
       ),
     );

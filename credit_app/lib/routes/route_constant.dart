@@ -6,4 +6,5 @@ class RouteConstants {
   static String adjustment = 'adjustment';
   static String menu = 'menu';
   static String register = 'register';
+  static String transactionHistory = 'transactionHistory';
 }

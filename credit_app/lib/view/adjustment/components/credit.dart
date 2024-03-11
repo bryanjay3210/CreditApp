@@ -44,7 +44,7 @@ class _CreditState extends State<Credit> {
                     children: [
                       TextSpan(
                           text: 'P 1,000,000,000.00',
-                          style: TextStyle(color: kDefaultColor))
+                          style: TextStyle(color: kPrimaryColor))
                     ])),
               ),
             )

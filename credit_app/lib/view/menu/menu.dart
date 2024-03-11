@@ -52,13 +52,14 @@ class _MenuScreenState extends State<MenuScreen> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       MenuTile(
-                          lottieUrl:
-                              'https://assets3.lottiefiles.com/packages/lf20_ty4pchuq.json',
-                          tileColor: kDefaultColor,
-                          title: 'Debit/Credit',
-                          description:
-                              'Indicate where value is flowing into and out of a business.',
-                          func: () => context.pushNamed(RouteConstants.credit)),
+                        lottieUrl:
+                            'https://assets3.lottiefiles.com/packages/lf20_ty4pchuq.json',
+                        tileColor: kPrimaryColor,
+                        title: 'Debit/Credit',
+                        description:
+                            'Indicate where value is flowing into and out of a business.',
+                        func: () => context.pushNamed(RouteConstants.credit),
+                      ),
                       const SizedBox(
                         width: 30,
                       ),

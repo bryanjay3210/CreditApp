@@ -26,7 +26,7 @@ class _LoginContainerState extends State<LoginContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 250, 20, 30),
+      padding: const EdgeInsets.fromLTRB(20, 300, 20, 30),
       child: Form(
         key: loginKey,
         child: BlocConsumer<LoginCubit, LoginState>(
@@ -54,8 +54,8 @@ class _LoginContainerState extends State<LoginContainer> {
                   const SizedBox(height: 30),
                   Text(
                     'Login',
-                    style:
-                        GoogleFonts.montserrat(color: Colors.red, fontSize: 18),
+                    style: GoogleFonts.montserrat(
+                        color: kPrimaryColor, fontSize: 18),
                   ),
                   const SizedBox(height: 30),
                   TextFormField(
@@ -87,24 +87,18 @@ class _LoginContainerState extends State<LoginContainer> {
                   state.isLoading
                       ? Center(
                           child: LoadingAnimationWidget.staggeredDotsWave(
-                              color: kDefaultColor, size: 40),
+                              color: kPrimaryColor, size: 40),
                         )
                       : Container(
                           width: double.infinity,
-                          color: kDefaultColor,
+                          color: kPrimaryColor,
                           child: TextButton(
                               onPressed: () {
                                 if (loginKey.currentState!.validate()) {
-                                  context
-                                      .read<LoginCubit>()
-                                      .authenticate(
-                                          username: usernameCtrl.text,
-                                          password: passwordCtrl.text,
-                                          context: context)
-                                      .then((value) {
-                                    usernameCtrl.clear();
-                                    passwordCtrl.clear();
-                                  });
+                                  context.read<LoginCubit>().authenticate(
+                                      username: usernameCtrl.text,
+                                      password: passwordCtrl.text,
+                                      context: context);
                                 }
                               },
                               child: const Text(
@@ -112,19 +106,19 @@ class _LoginContainerState extends State<LoginContainer> {
                                 style: TextStyle(color: Colors.white),
                               )),
                         ),
-                  const SizedBox(height: 10),
-                  const Text('or'),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Column(
-                        children: [
-                          Icon(
-                            Icons.fingerprint,
-                            size: 30,
-                          ),
-                          Text('Fingerprint Login')
-                        ],
-                      )),
+                  // const SizedBox(height: 10),
+                  // const Text('or'),
+                  // IconButton(
+                  //     onPressed: () {},
+                  //     icon: const Column(
+                  //       children: [
+                  //         Icon(
+                  //           Icons.fingerprint,
+                  //           size: 30,
+                  //         ),
+                  //         Text('Fingerprint Login')
+                  //       ],
+                  //     )),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bloc/bloc.dart';
 import 'package:credit_app/models/account.dart';
 import 'package:credit_app/utility/toast.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 
@@ -20,7 +22,8 @@ class RegisterCubit extends Cubit<RegisterState> {
             isShow: false));
 
   Future<void> registerAccount(
-      {required String fullname,
+      {required BuildContext context,
+      required String fullname,
       required String address,
       required String username,
       required String password,
@@ -36,8 +39,11 @@ class RegisterCubit extends Cubit<RegisterState> {
         password: password,
         userId: uuid.v1(),
         imageBase64: img?.readAsBytesSync()));
-
-    showToast(text: 'Successfully Registered!');
+    showSnackBar(
+        context: context,
+        title: 'Success',
+        message: 'Successfully Registered!',
+        contentType: ContentType.success);
 
     emit(state.copyWith(isLoading: false));
   }

@@ -1,5 +1,6 @@
 import 'package:credit_app/bootstrap.dart';
 import 'package:credit_app/routes/app_routes.dart';
+import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/credit/cubit/credit_cubit.dart';
 import 'package:credit_app/view/credit/cubit/debit_cubit.dart';
 import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
         title: 'Credit App',
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.red,
+              seedColor: kPrimaryColor,
             ),
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.white,

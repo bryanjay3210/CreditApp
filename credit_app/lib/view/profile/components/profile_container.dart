@@ -100,7 +100,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   ),
                   Container(
                     width: double.infinity,
-                    color: kDefaultColor,
+                    color: kPrimaryColor,
                     child: TextButton(
                         onPressed: () {},
                         child: const Text(
@@ -113,7 +113,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   ),
                   Container(
                     width: double.infinity,
-                    color: kDefaultColor,
+                    color: kPrimaryColor,
                     child: TextButton(
                         onPressed: () =>
                             context.read<ProfileCubit>().logout(context),

@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bloc/bloc.dart';
 import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/models/creditor.dart';
@@ -13,7 +14,8 @@ part 'creditor_state.dart';
 
 class CreditorCubit extends Cubit<CreditorState> {
   CreditorCubit()
-      : super(const CreditorState(isLoading: false, creditorList: []));
+      : super(const CreditorState(
+            isLoading: false, inSearch: false, creditorList: []));
 
   void addCreditor({required String fullname, required BuildContext context}) {
     final box = Hive.box('creditor');
@@ -25,7 +27,11 @@ class CreditorCubit extends Cubit<CreditorState> {
         totalBalance: 0));
     getCreditor();
     context.pop();
-    showToast(text: 'Success!');
+    showSnackBar(
+        context: context,
+        title: 'Success',
+        message: 'Creditor has been added!',
+        contentType: ContentType.success);
   }
 
   Future<void> getCreditor() async {
@@ -39,6 +45,10 @@ class CreditorCubit extends Cubit<CreditorState> {
       }
     }
     emit(state.copyWith(isLoading: false, creditorList: creditorList));
+  }
+
+  void toogleSearch({required bool value}) {
+    emit(state.copyWith(inSearch: value));
   }
 
   Future<void> searchCreditor(String value) async {

@@ -53,9 +53,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
         initPositionSelected: 0,
         screens: screens,
         slidePercent: 60,
-        // backgroundColorAppBar: kDefaultColor,
+        // backgroundColorAppBar: kPrimaryColor,
         backgroundColorContent: Colors.white,
         curveAnimation: Curves.bounceInOut,
-        backgroundColorMenu: kDefaultColor);
+        backgroundColorMenu: kPrimaryColor);
   }
 }

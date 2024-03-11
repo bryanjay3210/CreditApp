@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/helper/image_helper.dart';
+import 'package:credit_app/utility/const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -88,10 +89,10 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
             child: FittedBox(
               fit: BoxFit.contain,
               child: GetIt.I<AuthHelper>().image == null
-                  ? const CircleAvatar(
+                  ? CircleAvatar(
                       radius: 40,
                       child: Icon(CupertinoIcons.person_alt,
-                          color: Colors.red, size: 40),
+                          color: kPrimaryColor, size: 40),
                     )
                   : CircleAvatar(
                       radius: 40,

@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bloc/bloc.dart';
 import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/models/account.dart';
@@ -19,25 +20,37 @@ class LoginCubit extends Cubit<LoginState> {
       required String password,
       required BuildContext context}) async {
     emit(state.copyWith(isLoading: true));
-    try {
-      final box = Hive.box('account');
-      var accountList = box.values.toList();
-      var acct = accountList
-          .where((element) => element.username == username)
-          .first as Account;
-      if (acct.username == username && acct.password == password) {
-        GetIt.I<AuthHelper>().userId = acct.userId;
-        GetIt.I<AuthHelper>().account = acct;
-        context.pushNamed(RouteConstants.dashboard);
-      } else {
-        showToast(text: 'Invalid username or password!');
-      }
-    } catch (e) {
-      showToast(text: 'User is not yet register!');
-      emit(state.copyWith(isLoading: false));
-    }
-
-    emit(state.copyWith(isLoading: false));
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        try {
+          final box = Hive.box('account');
+          var accountList = box.values.toList();
+          var acct = accountList
+              .where((element) => element.username == username)
+              .first as Account;
+          if (acct.username == username && acct.password == password) {
+            GetIt.I<AuthHelper>().userId = acct.userId;
+            GetIt.I<AuthHelper>().account = acct;
+            context.pushNamed(RouteConstants.dashboard);
+          } else {
+            showSnackBar(
+                context: context,
+                title: 'Error',
+                message: 'Invalid username or password!',
+                contentType: ContentType.failure);
+          }
+        } catch (e) {
+          showSnackBar(
+              context: context,
+              title: 'Warning',
+              message: 'User is not yet register!',
+              contentType: ContentType.warning);
+          emit(state.copyWith(isLoading: false));
+        }
+        emit(state.copyWith(isLoading: false));
+      },
+    );
   }
 
   void toggleIsShow({required bool value}) {

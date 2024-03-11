@@ -1,3 +1,4 @@
+import 'package:credit_app/utility/const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,15 +9,16 @@ class CircularIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
         children: [
-          SizedBox(
-            height: 210,
+          const SizedBox(
+            height: 260,
           ),
           CircleAvatar(
             radius: 40,
-            child: Icon(CupertinoIcons.person_alt, color: Colors.red, size: 40),
+            child:
+                Icon(CupertinoIcons.person_alt, color: kPrimaryColor, size: 40),
           ),
         ],
       ),
