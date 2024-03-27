@@ -118,7 +118,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
                                           address: addressCtrl.text,
                                           username: usernameCtrl.text,
                                           password: passwordCtrl.text,
-                                          img: GetIt.I<AuthHelper>().image)
+                                          img: state.base64Image)
                                       .then((value) {
                                     fullnameCtrl.clear();
                                     addressCtrl.clear();

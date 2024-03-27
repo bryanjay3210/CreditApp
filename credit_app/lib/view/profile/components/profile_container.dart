@@ -1,6 +1,7 @@
 import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/profile/cubit/profile_cubit.dart';
+import 'package:credit_app/view/register/cubit/register_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +51,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
               ),
             ],
           ),
-          child: BlocConsumer<ProfileCubit, ProfileState>(
+          child: BlocConsumer<RegisterCubit, RegisterState>(
             listener: (context, state) {
               // TODO: implement listener
             },
@@ -94,7 +95,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                         prefixIcon: const Icon(CupertinoIcons.padlock_solid),
                         suffix: IconButton(
                             onPressed: () => context
-                                .read<ProfileCubit>()
+                                .read<RegisterCubit>()
                                 .toggleIsShow(value: !state.isShow),
                             icon: Icon(state.isShow
                                 ? Icons.visibility_outlined
@@ -110,7 +111,12 @@ class _ProfileContainerState extends State<ProfileContainer> {
                     width: double.infinity,
                     color: kPrimaryColor,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => context
+                            .read<ProfileCubit>()
+                            .updateProfile(
+                                context: context,
+                                password: passwordCtrl.text,
+                                imageBase64: state.base64Image!),
                         child: const Text(
                           'Update Profile',
                           style: TextStyle(color: Colors.white),

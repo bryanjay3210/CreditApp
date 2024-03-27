@@ -24,8 +24,8 @@ class LoginCubit extends Cubit<LoginState> {
       const Duration(seconds: 2),
       () {
         try {
-          final box = Hive.box('account');
-          var accountList = box.values.toList();
+          final accountBox = Hive.box('account');
+          var accountList = accountBox.values.toList();
           var acct = accountList
               .where((element) => element.username == username)
               .first as Account;
