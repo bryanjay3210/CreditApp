@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
@@ -62,6 +61,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void toggleIsShow({required bool value}) {
-    emit(state.copyWith(isShow: value));
+    emit(state.copyWith(
+        isShow: value,
+        base64Image: GetIt.I<AuthHelper>().account!.imageBase64));
   }
 }
