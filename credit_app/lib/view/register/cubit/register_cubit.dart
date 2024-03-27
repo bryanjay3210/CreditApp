@@ -1,9 +1,13 @@
-import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bloc/bloc.dart';
+import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/models/account.dart';
 import 'package:credit_app/utility/toast.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 
@@ -20,29 +24,45 @@ class RegisterCubit extends Cubit<RegisterState> {
             isShow: false));
 
   Future<void> registerAccount(
-      {required String fullname,
+      {required BuildContext context,
+      required String fullname,
       required String address,
       required String username,
       required String password,
-      File? img}) async {
+      Uint8List? img}) async {
     emit(state.copyWith(isLoading: true));
-    final box = Hive.box('account');
+    final accountBox = Hive.box('account');
     var uuid = const Uuid();
 
-    box.add(Account(
+    accountBox.add(Account(
         fullname: fullname,
         address: address,
         username: username,
         password: password,
         userId: uuid.v1(),
-        imageBase64: img?.readAsBytesSync()));
+        imageBase64: img));
+    showSnackBar(
+        context: context,
+        title: 'Success',
+        message: 'Successfully Registered!',
+        contentType: ContentType.success);
 
-    showToast(text: 'Successfully Registered!');
+    emit(state.copyWith(isLoading: false, base64Image: img));
+  }
 
-    emit(state.copyWith(isLoading: false));
+  Future<void> setImage({required Uint8List base64Image}) async {
+    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: false, base64Image: base64Image));
+  }
+
+  Future<void> getImage() async {
+    emit(state.copyWith(
+        base64Image: GetIt.I<AuthHelper>().account!.imageBase64));
   }
 
   void toggleIsShow({required bool value}) {
-    emit(state.copyWith(isShow: value));
+    emit(state.copyWith(
+        isShow: value,
+        base64Image: GetIt.I<AuthHelper>().account!.imageBase64));
   }
 }

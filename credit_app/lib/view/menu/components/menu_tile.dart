@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 class MenuTile extends StatelessWidget {
   final Color tileColor;
   final String title;
-  final String description;
+  final String? description;
   final VoidCallback func;
   final String lottieUrl;
   const MenuTile({
@@ -12,7 +12,7 @@ class MenuTile extends StatelessWidget {
     required this.tileColor,
     required this.title,
     required this.func,
-    required this.description,
+    this.description,
     required this.lottieUrl,
   });
 
@@ -34,35 +34,24 @@ class MenuTile extends StatelessWidget {
             ),
           ],
         ),
-        height: 100,
-        width: 160,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 100,
-                height: 100,
-                child: Lottie.network(lottieUrl),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                title,
-                style: const TextStyle(fontSize: 16, color: Colors.white),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                description,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 13, color: Colors.white),
-              ),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 180,
+              child: Lottie.asset(lottieUrl),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              title,
+              style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
+            ),
+          ],
         ),
       ),
     );

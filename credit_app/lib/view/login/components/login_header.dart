@@ -1,5 +1,6 @@
+import 'package:credit_app/utility/const.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginHeader extends StatelessWidget {
   const LoginHeader({
@@ -9,9 +10,9 @@ class LoginHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 400,
       decoration: BoxDecoration(
-        color: const Color(0xffE13245),
+        color: kPrimaryColor,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -25,15 +26,11 @@ class LoginHeader extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
-            SizedBox(
-                height: 160,
-                width: 200,
-                child: Image.asset('assets/credit.png')),
-            Text(
-              'Welcome to Credit App!',
-              style: GoogleFonts.montserrat(color: Colors.white, fontSize: 20),
+            LottieBuilder.asset(
+              'assets/login_animation2.json',
+              height: 250,
             ),
           ],
         ),

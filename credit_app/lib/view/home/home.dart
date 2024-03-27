@@ -1,13 +1,12 @@
 import 'package:credit_app/helper/formatter.dart';
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/utility/const.dart';
+import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
 import 'package:credit_app/view/home/cubit/home_cubit.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:credit_app/view/menu/components/menu_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,12 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+        listener: (context, state) {},
         builder: (context, state) {
-          return WillPopScope(
-            onWillPop: () async => false,
+          return PopScope(
+            canPop: false,
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -43,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       height: 150,
                       decoration: BoxDecoration(
-                        color: kDefaultColor,
+                        color: kPrimaryColor,
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
@@ -139,89 +136,66 @@ class _HomeScreenState extends State<HomeScreen> {
                       'Menu',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    SizedBox(
-                      height: 80,
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      height: 300,
                       width: double.infinity,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
-                          GestureDetector(
-                            onTap: () => context
-                                .pushNamed(RouteConstants.creditor)
-                                .then((value) {
-                              context.read<HomeCubit>().computeTotal();
-                              context.read<HomeCubit>().getTransactionHistory();
-                            }),
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                children: [
-                                  const Icon(CupertinoIcons.person_2_alt),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('Creditor',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall),
-                                ],
-                              ),
+                          MenuTile(
+                            lottieUrl: 'assets/boy.json',
+                            tileColor: kPrimaryColor,
+                            title: 'Creditor',
+                            func: () =>
+                                context.pushNamed(RouteConstants.creditor).then(
+                              (value) {
+                                context.read<HomeCubit>().computeTotal();
+                                context
+                                    .read<HomeCubit>()
+                                    .getTransactionHistory();
+                                context
+                                    .read<CreditorCubit>()
+                                    .toogleSearch(value: false);
+                              },
                             ),
-                          )
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          MenuTile(
+                            lottieUrl: 'assets/transaction_history.json',
+                            tileColor: kSecondaryColor,
+                            title: 'Transactions',
+                            func: () => context
+                                .pushNamed(RouteConstants.transactionHistory),
+                          ),
+                          // GestureDetector(
+                          //   onTap: () => context
+                          //       .pushNamed(RouteConstants.creditor)
+                          //       .then((value) {
+                          //     context.read<HomeCubit>().computeTotal();
+                          //     context.read<HomeCubit>().getTransactionHistory();
+                          //   }),
+                          //   child: Container(
+                          //     padding: const EdgeInsets.all(10),
+                          //     child: Column(
+                          //       children: [
+                          //         const Icon(CupertinoIcons.person_2_alt),
+                          //         const SizedBox(
+                          //           height: 10,
+                          //         ),
+                          //         Text('Creditor',
+                          //             style: Theme.of(context)
+                          //                 .textTheme
+                          //                 .labelSmall),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                     ),
-                    Text(
-                      'Transaction History',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                        child: state.isLoading
-                            ? Center(
-                                child: LoadingAnimationWidget.staggeredDotsWave(
-                                    color: kDefaultColor, size: 40),
-                              )
-                            : state.transactionHistory.isEmpty
-                                ? Center(
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Lottie.network(
-                                              'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json',
-                                              height: 250),
-                                          const Text('No data.',
-                                              style: TextStyle(fontSize: 18)),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : ListView.separated(
-                                    itemBuilder: (context, index) {
-                                      var th = state.transactionHistory[index];
-                                      return ListTile(
-                                        leading: const Icon(
-                                            CupertinoIcons.person_alt,
-                                            size: 30),
-                                        title: Text(th.creditor),
-                                        subtitle: Text(Formatter()
-                                            .formatDateTime(th.dateStmp)),
-                                        trailing: Text(
-                                            Formatter()
-                                                .formatCurrency(th.amount),
-                                            style: TextStyle(
-                                                color: th.isCredit
-                                                    ? kDefaultColor
-                                                    : Colors.green)),
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) =>
-                                        const Divider(),
-                                    itemCount: state.transactionHistory.length))
                   ]),
             ),
           );

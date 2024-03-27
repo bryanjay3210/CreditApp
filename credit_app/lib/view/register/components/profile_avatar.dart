@@ -1,9 +1,9 @@
-import 'dart:io';
-
-import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/helper/image_helper.dart';
+import 'package:credit_app/utility/const.dart';
+import 'package:credit_app/view/register/cubit/register_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -40,12 +40,13 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
                                   .then((res) async {
                                 await GetIt.I<ImageHelper>()
                                     .cropImage(file: res!)
-                                    .then((value) {
-                                  setState(() {
-                                    GetIt.I<AuthHelper>().image =
-                                        File(value!.path);
-                                  });
-                                  context.pop();
+                                    .then((value) async {
+                                  context
+                                      .read<RegisterCubit>()
+                                      .setImage(
+                                          base64Image:
+                                              await value!.readAsBytes())
+                                      .then((value) => context.pop());
                                 });
                               });
                             },
@@ -63,12 +64,13 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
                                   .then((res) async {
                                 await GetIt.I<ImageHelper>()
                                     .cropImage(file: res!)
-                                    .then((value) {
-                                  setState(() {
-                                    GetIt.I<AuthHelper>().image =
-                                        File(value!.path);
-                                  });
-                                  context.pop();
+                                    .then((value) async {
+                                  context
+                                      .read<RegisterCubit>()
+                                      .setImage(
+                                          base64Image:
+                                              await value!.readAsBytes())
+                                      .then((value) => context.pop());
                                 });
                               });
                             },
@@ -87,16 +89,26 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
             },
             child: FittedBox(
               fit: BoxFit.contain,
-              child: GetIt.I<AuthHelper>().image == null
-                  ? const CircleAvatar(
+              child: BlocBuilder<RegisterCubit, RegisterState>(
+                builder: (context, state) {
+                  if (state.base64Image == null) {
+                    return CircleAvatar(
                       radius: 40,
                       child: Icon(CupertinoIcons.person_alt,
-                          color: Colors.red, size: 40),
-                    )
-                  : CircleAvatar(
-                      radius: 40,
-                      backgroundImage: FileImage(GetIt.I<AuthHelper>().image!),
-                    ),
+                          color: kPrimaryColor, size: 40),
+                    );
+                  }
+                  if (state.isLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return CircleAvatar(
+                    radius: 40,
+                    backgroundImage: Image.memory(state.base64Image!).image,
+                  );
+                },
+              ),
             ),
           ),
         ],

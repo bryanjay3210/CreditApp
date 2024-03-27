@@ -19,6 +19,7 @@ class _CreditState extends State<Credit> {
   final titleCtrl = TextEditingController();
   final descriptionCtrl = TextEditingController();
   final amountCtrl = TextEditingController();
+  final creditKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _CreditState extends State<Credit> {
             if (state.isLoading) {
               return Center(
                 child: LoadingAnimationWidget.staggeredDotsWave(
-                    color: kDefaultColor, size: 40),
+                    color: kPrimaryColor, size: 40),
               );
             }
             if (!state.isLoading && state.creditList.isEmpty) {
@@ -48,9 +49,9 @@ class _CreditState extends State<Credit> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Lottie.network(
-                          'https://lottie.host/cb80271e-58bb-41c6-95d5-bb60eeec4026/q4wNYtjvIP.json'),
-                      const Text('No data', style: TextStyle(fontSize: 20)),
+                      Lottie.asset('assets/empty.json'),
+                      const Text('No credit found',
+                          style: TextStyle(fontSize: 20)),
                     ],
                   ),
                 ),
@@ -88,7 +89,7 @@ class _CreditState extends State<Credit> {
                         children: [
                           TextSpan(
                               text: 'P ${state.totalCredit}',
-                              style: TextStyle(color: kDefaultColor))
+                              style: TextStyle(color: kPrimaryColor))
                         ])),
                   ),
                 )
@@ -99,12 +100,11 @@ class _CreditState extends State<Credit> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            final formKey = GlobalKey<FormState>();
             showDialog<void>(
               context: context,
               builder: (BuildContext context) {
                 return Form(
-                  key: formKey,
+                  key: creditKey,
                   child: AlertDialog(
                     title: const Text('Add Credit'),
                     content: Column(
@@ -137,7 +137,7 @@ class _CreditState extends State<Credit> {
                         ),
                         child: const Text('Add'),
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
+                          if (creditKey.currentState!.validate()) {
                             context
                                 .read<CreditCubit>()
                                 .addCredit(

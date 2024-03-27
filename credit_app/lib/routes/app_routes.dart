@@ -6,6 +6,7 @@ import 'package:credit_app/view/drawer/drawer.dart';
 import 'package:credit_app/view/login/login.dart';
 import 'package:credit_app/view/menu/menu.dart';
 import 'package:credit_app/view/register/register.dart';
+import 'package:credit_app/view/transaction/transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
@@ -59,6 +60,13 @@ class AppRoutes {
         path: '/register',
         pageBuilder: (context, state) {
           return const CupertinoPage(child: RegisterScreen());
+        },
+      ),
+      GoRoute(
+        name: RouteConstants.transactionHistory,
+        path: '/transactionHistory',
+        pageBuilder: (context, state) {
+          return const CupertinoPage(child: TransactionHistoryScreen());
         },
       ),
     ],

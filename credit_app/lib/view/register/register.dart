@@ -19,7 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             RegisterHeader(),
             RegisterContainer(),
-            ProfileAvatar(height: 170),
+            ProfileAvatar(height: 240),
           ],
         ),
       ),

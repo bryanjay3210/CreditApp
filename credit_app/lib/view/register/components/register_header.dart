@@ -1,5 +1,6 @@
+import 'package:credit_app/utility/const.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class RegisterHeader extends StatefulWidget {
   const RegisterHeader({super.key});
@@ -12,9 +13,9 @@ class _RegisterHeaderState extends State<RegisterHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 350,
       decoration: BoxDecoration(
-        color: const Color(0xffE13245),
+        color: kPrimaryColor,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -28,12 +29,9 @@ class _RegisterHeaderState extends State<RegisterHeader> {
         child: Column(
           children: [
             const SizedBox(
-              height: 100,
+              height: 20,
             ),
-            Text(
-              'Registration Form',
-              style: GoogleFonts.montserrat(color: Colors.white, fontSize: 30),
-            ),
+            Lottie.asset('assets/registration.json')
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/profile/cubit/profile_cubit.dart';
+import 'package:credit_app/view/register/cubit/register_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,15 +20,20 @@ class _ProfileContainerState extends State<ProfileContainer> {
   final usernameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final registerKey = GlobalKey<FormState>();
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     fullnameCtrl.text = GetIt.I<AuthHelper>().account!.fullname;
     addressCtrl.text = GetIt.I<AuthHelper>().account!.address;
     usernameCtrl.text = GetIt.I<AuthHelper>().account!.username;
     passwordCtrl.text = GetIt.I<AuthHelper>().account!.password;
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 150, 20, 10),
+      padding: const EdgeInsets.fromLTRB(20, 250, 20, 10),
       child: Form(
         key: registerKey,
         child: Container(
@@ -45,7 +51,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
               ),
             ],
           ),
-          child: BlocConsumer<ProfileCubit, ProfileState>(
+          child: BlocConsumer<RegisterCubit, RegisterState>(
             listener: (context, state) {
               // TODO: implement listener
             },
@@ -54,6 +60,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                 children: [
                   const SizedBox(height: 30),
                   TextFormField(
+                    readOnly: true,
                     controller: fullnameCtrl,
                     decoration: const InputDecoration(
                         hintText: 'Name',
@@ -63,6 +70,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
+                    readOnly: true,
                     controller: addressCtrl,
                     decoration: const InputDecoration(
                         hintText: 'Address',
@@ -72,6 +80,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
+                    readOnly: true,
                     controller: usernameCtrl,
                     decoration: const InputDecoration(
                         hintText: 'Username',
@@ -86,7 +95,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                         prefixIcon: const Icon(CupertinoIcons.padlock_solid),
                         suffix: IconButton(
                             onPressed: () => context
-                                .read<ProfileCubit>()
+                                .read<RegisterCubit>()
                                 .toggleIsShow(value: !state.isShow),
                             icon: Icon(state.isShow
                                 ? Icons.visibility_outlined
@@ -100,9 +109,14 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   ),
                   Container(
                     width: double.infinity,
-                    color: kDefaultColor,
+                    color: kPrimaryColor,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => context
+                            .read<ProfileCubit>()
+                            .updateProfile(
+                                context: context,
+                                password: passwordCtrl.text,
+                                imageBase64: state.base64Image!),
                         child: const Text(
                           'Update Profile',
                           style: TextStyle(color: Colors.white),
@@ -113,7 +127,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   ),
                   Container(
                     width: double.infinity,
-                    color: kDefaultColor,
+                    color: kPrimaryColor,
                     child: TextButton(
                         onPressed: () =>
                             context.read<ProfileCubit>().logout(context),
