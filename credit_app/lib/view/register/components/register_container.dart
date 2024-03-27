@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class RegisterContainer extends StatefulWidget {
@@ -25,7 +24,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 210, 20, 10),
+      padding: const EdgeInsets.fromLTRB(20, 280, 20, 10),
       child: Form(
         key: registerKey,
         child: Container(
@@ -53,8 +52,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
                   const SizedBox(height: 30),
                   Text(
                     'Register',
-                    style: GoogleFonts.montserrat(
-                        color: kPrimaryColor, fontSize: 18),
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(height: 30),
                   TextFormField(

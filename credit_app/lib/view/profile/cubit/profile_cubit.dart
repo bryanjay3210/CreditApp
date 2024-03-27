@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:credit_app/models/account.dart';
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
