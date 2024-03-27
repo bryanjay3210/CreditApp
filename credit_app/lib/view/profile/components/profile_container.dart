@@ -19,15 +19,20 @@ class _ProfileContainerState extends State<ProfileContainer> {
   final usernameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final registerKey = GlobalKey<FormState>();
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     fullnameCtrl.text = GetIt.I<AuthHelper>().account!.fullname;
     addressCtrl.text = GetIt.I<AuthHelper>().account!.address;
     usernameCtrl.text = GetIt.I<AuthHelper>().account!.username;
     passwordCtrl.text = GetIt.I<AuthHelper>().account!.password;
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 150, 20, 10),
+      padding: const EdgeInsets.fromLTRB(20, 250, 20, 10),
       child: Form(
         key: registerKey,
         child: Container(
@@ -54,6 +59,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                 children: [
                   const SizedBox(height: 30),
                   TextFormField(
+                    readOnly: true,
                     controller: fullnameCtrl,
                     decoration: const InputDecoration(
                         hintText: 'Name',
@@ -63,6 +69,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
+                    readOnly: true,
                     controller: addressCtrl,
                     decoration: const InputDecoration(
                         hintText: 'Address',
@@ -72,6 +79,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
+                    readOnly: true,
                     controller: usernameCtrl,
                     decoration: const InputDecoration(
                         hintText: 'Username',

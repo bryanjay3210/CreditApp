@@ -1,7 +1,6 @@
 import 'package:credit_app/utility/const.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class ProfileHeader extends StatefulWidget {
   const ProfileHeader({super.key});
@@ -15,6 +14,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
   Widget build(BuildContext context) {
     return Container(
       height: 300,
+      width: double.infinity,
       decoration: BoxDecoration(
         color: kPrimaryColor,
         boxShadow: [
@@ -30,12 +30,9 @@ class _ProfileHeaderState extends State<ProfileHeader> {
         child: Column(
           children: [
             const SizedBox(
-              height: 60,
+              height: 10,
             ),
-            Text(
-              'Profile',
-              style: GoogleFonts.montserrat(color: Colors.white, fontSize: 30),
-            ),
+            Lottie.asset('assets/profile.json')
           ],
         ),
       ),

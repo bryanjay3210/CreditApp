@@ -1,4 +1,3 @@
-import 'package:credit_app/models/creditor.dart';
 import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +30,7 @@ class _CreditorScreenState extends State<CreditorScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CreditorCubit, CreditorState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(

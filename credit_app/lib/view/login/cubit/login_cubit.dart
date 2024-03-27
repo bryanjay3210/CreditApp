@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/models/account.dart';
 import 'package:credit_app/routes/route_constant.dart';
+import 'package:credit_app/utility/logger.dart';
 import 'package:credit_app/utility/toast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';

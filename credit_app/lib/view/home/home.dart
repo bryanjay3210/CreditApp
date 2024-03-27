@@ -1,16 +1,12 @@
 import 'package:credit_app/helper/formatter.dart';
-import 'package:credit_app/models/creditor.dart';
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
 import 'package:credit_app/view/home/cubit/home_cubit.dart';
 import 'package:credit_app/view/menu/components/menu_tile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

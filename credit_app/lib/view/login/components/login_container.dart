@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../utility/const.dart';
@@ -54,8 +53,7 @@ class _LoginContainerState extends State<LoginContainer> {
                   const SizedBox(height: 30),
                   Text(
                     'Login',
-                    style: GoogleFonts.montserrat(
-                        color: kPrimaryColor, fontSize: 18),
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(height: 30),
                   TextFormField(

@@ -11,7 +11,6 @@ import 'package:credit_app/view/register/cubit/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,12 +53,16 @@ class MyApp extends StatelessWidget {
         title: 'Credit App',
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: kPrimaryColor,
-            ),
+                seedColor: kPrimaryColor, brightness: Brightness.light),
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.white,
-            textTheme:
-                GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)),
+            fontFamily: 'Montserrat'
+            // textTheme: Theme.of(context).textTheme.apply(
+            //       fontFamily: 'Montserrat',
+            //       bodyColor: Colors.black,
+            //       displayColor: Colors.black,
+            //     ),
+            ),
         debugShowCheckedModeBanner: false,
         routeInformationParser:
             GetIt.I<AppRoutes>().routes.routeInformationParser,
