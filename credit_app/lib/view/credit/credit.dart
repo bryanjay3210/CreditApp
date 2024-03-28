@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreditScreen extends StatefulWidget {
-  const CreditScreen({super.key});
+  const CreditScreen({super.key, this.creditorName});
+
+  final String? creditorName;
 
   @override
   State<CreditScreen> createState() => _CreditScreenState();
@@ -17,7 +19,7 @@ class _CreditScreenState extends State<CreditScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Credit/Debit Entry'),
+          title: Text(widget.creditorName!),
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(CupertinoIcons.creditcard), text: 'Credit'),

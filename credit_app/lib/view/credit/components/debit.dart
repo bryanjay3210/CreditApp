@@ -65,13 +65,24 @@ class _DebitState extends State<Debit> {
                         var debit = state.debitList[index];
                         return ListTile(
                           onTap: () {},
-                          leading: const CircleAvatar(
-                              child: Icon(CupertinoIcons.person_alt)),
-                          title: Text(debit.title),
-                          subtitle:
-                              Text(Formatter().formatDateTime(debit.dateStmp)),
-                          trailing:
-                              Text(Formatter().formatCurrency(debit.amount)),
+                          leading: Icon(CupertinoIcons.money_dollar_circle_fill,
+                              size: 40, color: kPastelGreen),
+                          title: Text(debit.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(fontWeight: FontWeight.w600)),
+                          subtitle: Text(
+                            Formatter().formatDateTime(debit.dateStmp),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          trailing: Text(
+                            Formatter().formatCurrency(debit.amount),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(color: kPastelGreen),
+                          ),
                         );
                       },
                       separatorBuilder: (context, index) =>
@@ -84,12 +95,12 @@ class _DebitState extends State<Debit> {
                     alignment: Alignment.centerLeft,
                     child: Text.rich(TextSpan(
                         text: 'Total Debit: ',
-                        style: const TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyLarge,
                         children: [
                           TextSpan(
-                              text: 'P ${state.totalDebit}',
-                              style: const TextStyle(color: Colors.green))
+                              text:
+                                  Formatter().formatCurrency(state.totalDebit),
+                              style: TextStyle(color: kPastelGreen))
                         ])),
                   ),
                 )

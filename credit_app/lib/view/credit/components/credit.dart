@@ -65,13 +65,24 @@ class _CreditState extends State<Credit> {
                         var credit = state.creditList[index];
                         return ListTile(
                           onTap: () {},
-                          leading: const CircleAvatar(
-                              child: Icon(CupertinoIcons.person_alt)),
-                          title: Text(credit.title),
-                          subtitle:
-                              Text(Formatter().formatDateTime(credit.dateStmp)),
-                          trailing:
-                              Text(Formatter().formatCurrency(credit.amount)),
+                          leading: Icon(CupertinoIcons.money_dollar_circle_fill,
+                              size: 40, color: kPastelRed),
+                          title: Text(credit.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(fontWeight: FontWeight.w600)),
+                          subtitle: Text(
+                            Formatter().formatDateTime(credit.dateStmp),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          trailing: Text(
+                            Formatter().formatCurrency(credit.amount),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(color: kPastelRed),
+                          ),
                         );
                       },
                       separatorBuilder: (context, index) =>
@@ -84,12 +95,12 @@ class _CreditState extends State<Credit> {
                     alignment: Alignment.centerLeft,
                     child: Text.rich(TextSpan(
                         text: 'Total Credit: ',
-                        style: const TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyLarge,
                         children: [
                           TextSpan(
-                              text: 'P ${state.totalCredit}',
-                              style: TextStyle(color: kPrimaryColor))
+                              text:
+                                  Formatter().formatCurrency(state.totalCredit),
+                              style: TextStyle(color: kPastelRed))
                         ])),
                   ),
                 )

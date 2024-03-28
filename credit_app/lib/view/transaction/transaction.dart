@@ -61,15 +61,27 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                 itemBuilder: (context, index) {
                   var th = state.transactionHistory[index];
                   return ListTile(
-                    leading: const Icon(CupertinoIcons.person_alt, size: 30),
-                    title: Text(th.creditor),
-                    subtitle: Text(Formatter().formatDateTime(th.dateStmp)),
-                    trailing: Text(Formatter().formatCurrency(th.amount),
-                        style: TextStyle(
-                            color: th.isCredit ? Colors.red : Colors.green)),
+                    leading: Icon(CupertinoIcons.money_dollar_circle_fill,
+                        size: 40,
+                        color: th.isCredit ? kPastelRed : kPastelGreen),
+                    title: Text(
+                      th.creditor,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    subtitle: Text(
+                      Formatter().formatDateTime(th.dateStmp),
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    trailing: Text(
+                      Formatter().formatCurrency(th.amount),
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          color: th.isCredit ? kPastelRed : kPastelGreen),
+                    ),
                   );
                 },
-                separatorBuilder: (context, index) => const Divider(),
+                separatorBuilder: (context, index) => const SizedBox(height: 5),
                 itemCount: state.transactionHistory.length);
           },
         ),

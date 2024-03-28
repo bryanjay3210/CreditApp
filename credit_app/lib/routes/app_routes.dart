@@ -31,7 +31,10 @@ class AppRoutes {
         name: RouteConstants.credit,
         path: '/credit',
         pageBuilder: (context, state) {
-          return const CupertinoPage(child: CreditScreen());
+          return CupertinoPage(
+              child: CreditScreen(
+            creditorName: state.extra.toString(),
+          ));
         },
       ),
       GoRoute(

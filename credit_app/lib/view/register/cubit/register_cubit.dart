@@ -23,6 +23,17 @@ class RegisterCubit extends Cubit<RegisterState> {
             isLoading: false,
             isShow: false));
 
+  void initCubit() {
+    emit(state.copyWith(
+        fullname: '',
+        address: '',
+        username: '',
+        password: '',
+        isLoading: false,
+        isShow: false,
+        base64Image: null));
+  }
+
   Future<void> registerAccount(
       {required BuildContext context,
       required String fullname,
@@ -57,12 +68,10 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> getImage() async {
     emit(state.copyWith(
-        base64Image: GetIt.I<AuthHelper>().account!.imageBase64));
+        base64Image: GetIt.I<AuthHelper>().account?.imageBase64));
   }
 
-  void toggleIsShow({required bool value}) {
-    emit(state.copyWith(
-        isShow: value,
-        base64Image: GetIt.I<AuthHelper>().account!.imageBase64));
+  void toggleIsShow() {
+    emit(state.copyWith(isShow: !state.isShow));
   }
 }

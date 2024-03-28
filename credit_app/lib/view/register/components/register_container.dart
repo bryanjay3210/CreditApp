@@ -88,15 +88,14 @@ class _RegisterContainerState extends State<RegisterContainer> {
                         hintText: 'Password',
                         prefixIcon: const Icon(CupertinoIcons.padlock_solid),
                         suffix: IconButton(
-                            onPressed: () => context
-                                .read<RegisterCubit>()
-                                .toggleIsShow(value: !state.isShow),
+                            onPressed: () =>
+                                context.read<RegisterCubit>().toggleIsShow(),
                             icon: Icon(state.isShow
                                 ? Icons.visibility_outlined
                                 : Icons.visibility_off_outlined))),
                     validator: (value) =>
                         value!.isEmpty ? 'Password is required' : null,
-                    obscureText: !state.isShow ? true : false,
+                    obscureText: state.isShow,
                   ),
                   const SizedBox(height: 20),
                   state.isLoading

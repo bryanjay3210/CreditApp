@@ -29,40 +29,44 @@ class CreditorList extends StatelessWidget {
                 GetIt.I<CreditorHelper>().creditorId =
                     state.creditorList[index].creditorId;
                 GetIt.I<CreditorHelper>().creditorIndex = index;
-                context.pushNamed(RouteConstants.credit);
+                context.pushNamed(RouteConstants.credit,
+                    extra: state.creditorList[index].fullname);
               },
-              tileColor: kSecondaryColor,
-              leading: const CircleAvatar(
-                child: Icon(CupertinoIcons.person_alt),
+              leading: Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                    color: kTertiaryColor,
+                    borderRadius: BorderRadius.circular(5)),
+                child: const Icon(CupertinoIcons.person_alt),
               ),
               title: Text(state.creditorList[index].fullname,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
+                        fontWeight: FontWeight.w600,
+                      )),
               subtitle: Row(
                 children: [
                   Text(
-                    'Balance: ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall!
-                        .copyWith(color: Colors.white),
+                    state.creditorList[index].totalBalance > 0
+                        ? 'Balance: '
+                        : 'Available Credit: ',
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                   Text(
-                    Formatter()
-                        .formatCurrency(state.creditorList[index].totalBalance),
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall!
-                        .copyWith(color: Colors.white),
+                    Formatter().formatCurrency(
+                        state.creditorList[index].totalBalance.abs()),
+                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        color: state.creditorList[index].totalBalance > 0
+                            ? kPastelRed
+                            : kPastelGreen),
                   ),
                 ],
               ),
               trailing: state.creditorList[index].totalBalance > 0
-                  ? Text('Unpaid',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(color: Colors.white))
+                  ? Image.asset(
+                      'assets/unpaid.png',
+                      width: 50,
+                    )
                   : const SizedBox(),
             ),
           );

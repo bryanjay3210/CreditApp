@@ -121,12 +121,16 @@ class _LoginContainerState extends State<LoginContainer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Not yet registered? '),
+                      Text('Not yet registered? ',
+                          style: Theme.of(context).textTheme.labelLarge),
                       GestureDetector(
                         onTap: () => context.pushNamed(RouteConstants.register),
-                        child: const Text(
+                        child: Text(
                           'Click here',
-                          style: TextStyle(color: Colors.blue),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(color: Colors.blue),
                         ),
                       ),
                     ],

@@ -62,14 +62,6 @@ class _CreditorScreenState extends State<CreditorScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
               children: [
-                // TextFormField(
-                //   controller: searchCtrl,
-                //   decoration: const InputDecoration(
-                //       prefixIcon: Icon(CupertinoIcons.search),
-                //       hintText: 'Search'),
-                //   onChanged: (value) =>
-                //       context.read<CreditorCubit>().searchCreditor(value),
-                // ),
                 const SizedBox(
                   height: 10,
                 ),

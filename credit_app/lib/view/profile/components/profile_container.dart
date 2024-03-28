@@ -94,9 +94,8 @@ class _ProfileContainerState extends State<ProfileContainer> {
                         hintText: 'Password',
                         prefixIcon: const Icon(CupertinoIcons.padlock_solid),
                         suffix: IconButton(
-                            onPressed: () => context
-                                .read<RegisterCubit>()
-                                .toggleIsShow(value: !state.isShow),
+                            onPressed: () =>
+                                context.read<RegisterCubit>().toggleIsShow(),
                             icon: Icon(state.isShow
                                 ? Icons.visibility_outlined
                                 : Icons.visibility_off_outlined))),

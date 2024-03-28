@@ -84,15 +84,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Row(
                               children: [
-                                const Column(
+                                Column(
                                   children: [
                                     Text('Total Credit',
-                                        style: TextStyle(color: Colors.white)),
-                                    SizedBox(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(color: Colors.white)),
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Text('Total Debit',
-                                        style: TextStyle(color: Colors.white)),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(color: Colors.white)),
                                   ],
                                 ),
                                 const SizedBox(
@@ -104,11 +110,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         state.isShow
                                             ? Formatter().formatCurrency(
                                                 state.totalCredit)
-                                            : '***************',
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17)),
+                                            : '********',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600)),
                                     const SizedBox(
                                       height: 10,
                                     ),
@@ -116,11 +124,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         state.isShow
                                             ? Formatter().formatCurrency(
                                                 state.totalDebit)
-                                            : '***************',
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17)),
+                                            : '********',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600)),
                                   ],
                                 )
                               ],
