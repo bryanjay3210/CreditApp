@@ -2,6 +2,7 @@ import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/view/adjustment/adjustment.dart';
 import 'package:credit_app/view/credit/credit.dart';
 import 'package:credit_app/view/creditor/creditor.dart';
+import 'package:credit_app/view/creditor_information/creditor_information.dart';
 import 'package:credit_app/view/drawer/drawer.dart';
 import 'package:credit_app/view/login/login.dart';
 import 'package:credit_app/view/menu/menu.dart';
@@ -70,6 +71,13 @@ class AppRoutes {
         path: '/transactionHistory',
         pageBuilder: (context, state) {
           return const CupertinoPage(child: TransactionHistoryScreen());
+        },
+      ),
+      GoRoute(
+        name: RouteConstants.creditorInformation,
+        path: '/creditorInformation',
+        pageBuilder: (context, state) {
+          return const CupertinoPage(child: CreditorInformation());
         },
       ),
     ],

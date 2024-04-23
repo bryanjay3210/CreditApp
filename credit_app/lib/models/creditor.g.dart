@@ -21,13 +21,18 @@ class CreditorAdapter extends TypeAdapter<Creditor> {
       userId: fields[1] as String,
       creditorId: fields[2] as String,
       totalBalance: fields[3] as double,
+      gender: fields[4] as String,
+      address: fields[5] as String,
+      contactNo: fields[6] as String,
+      emailAddress: fields[7] as String,
+      base64Image: fields[8] as Uint8List?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Creditor obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.fullname)
       ..writeByte(1)
@@ -35,7 +40,17 @@ class CreditorAdapter extends TypeAdapter<Creditor> {
       ..writeByte(2)
       ..write(obj.creditorId)
       ..writeByte(3)
-      ..write(obj.totalBalance);
+      ..write(obj.totalBalance)
+      ..writeByte(4)
+      ..write(obj.gender)
+      ..writeByte(5)
+      ..write(obj.address)
+      ..writeByte(6)
+      ..write(obj.contactNo)
+      ..writeByte(7)
+      ..write(obj.emailAddress)
+      ..writeByte(8)
+      ..write(obj.base64Image);
   }
 
   @override

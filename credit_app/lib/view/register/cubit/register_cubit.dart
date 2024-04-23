@@ -42,23 +42,28 @@ class RegisterCubit extends Cubit<RegisterState> {
       required String password,
       Uint8List? img}) async {
     emit(state.copyWith(isLoading: true));
-    final accountBox = Hive.box('account');
-    var uuid = const Uuid();
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        final accountBox = Hive.box('account');
+        var uuid = const Uuid();
 
-    accountBox.add(Account(
-        fullname: fullname,
-        address: address,
-        username: username,
-        password: password,
-        userId: uuid.v1(),
-        imageBase64: img));
-    showSnackBar(
-        context: context,
-        title: 'Success',
-        message: 'Successfully Registered!',
-        contentType: ContentType.success);
+        accountBox.add(Account(
+            fullname: fullname,
+            address: address,
+            username: username,
+            password: password,
+            userId: uuid.v1(),
+            imageBase64: img));
+        showSnackBar(
+            context: context,
+            title: 'Success',
+            message: 'Successfully Registered!',
+            contentType: ContentType.success);
 
-    emit(state.copyWith(isLoading: false, base64Image: img));
+        emit(state.copyWith(isLoading: false, base64Image: img));
+      },
+    );
   }
 
   Future<void> setImage({required Uint8List base64Image}) async {

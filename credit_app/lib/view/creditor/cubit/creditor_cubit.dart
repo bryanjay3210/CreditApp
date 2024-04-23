@@ -4,11 +4,9 @@ import 'package:credit_app/helper/auth.dart';
 import 'package:credit_app/models/creditor.dart';
 import 'package:credit_app/utility/toast.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
-import 'package:uuid/uuid.dart';
 
 part 'creditor_state.dart';
 
@@ -16,23 +14,6 @@ class CreditorCubit extends Cubit<CreditorState> {
   CreditorCubit()
       : super(const CreditorState(
             isLoading: false, inSearch: false, creditorList: []));
-
-  void addCreditor({required String fullname, required BuildContext context}) {
-    final box = Hive.box('creditor');
-    var uuid = const Uuid();
-    box.add(Creditor(
-        fullname: fullname,
-        userId: GetIt.I<AuthHelper>().userId,
-        creditorId: uuid.v1(),
-        totalBalance: 0));
-    getCreditor();
-    context.pop();
-    showSnackBar(
-        context: context,
-        title: 'Success',
-        message: 'Creditor has been added!',
-        contentType: ContentType.success);
-  }
 
   Future<void> getCreditor() async {
     emit(state.copyWith(isLoading: true, creditorList: []));
@@ -45,6 +26,21 @@ class CreditorCubit extends Cubit<CreditorState> {
       }
     }
     emit(state.copyWith(isLoading: false, creditorList: creditorList));
+  }
+
+  Future<void> deleteCreditor(
+      {required creditorId, required BuildContext context}) async {
+    var creditor = Hive.box('creditor')
+        .values
+        .toList()
+        .where((element) => element.creditorId == creditorId)
+        .first;
+    creditor.delete();
+    showSnackBar(
+        context: context,
+        title: 'Success',
+        message: 'Successfully deleted!',
+        contentType: ContentType.success);
   }
 
   void toogleSearch({required bool value}) {

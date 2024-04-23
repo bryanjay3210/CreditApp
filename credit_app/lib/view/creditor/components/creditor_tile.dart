@@ -1,12 +1,11 @@
-import 'dart:ui';
-
 import 'package:credit_app/helper/creditor.dart';
 import 'package:credit_app/helper/formatter.dart';
 import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,9 +20,54 @@ class CreditorList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
         itemBuilder: (context, index) {
-          return ImageFiltered(
-            imageFilter: ImageFilter.blur(),
-            enabled: true,
+          return Slidable(
+            startActionPane:
+                ActionPane(motion: const StretchMotion(), children: [
+              SlidableAction(
+                onPressed: (context) {},
+                backgroundColor: kPrimaryColor,
+                foregroundColor: Colors.white,
+                icon: Icons.edit,
+                label: 'Edit',
+                padding: const EdgeInsets.all(5),
+              ),
+              SlidableAction(
+                onPressed: (context) => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext dialogcontext) => AlertDialog(
+                    title: const Text('Delete creditor'),
+                    content: Text(
+                        'Are your sure your want to delete ${state.creditorList[index].fullname}?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          dialogcontext
+                              .read<CreditorCubit>()
+                              .deleteCreditor(
+                                  creditorId:
+                                      state.creditorList[index].creditorId,
+                                  context: dialogcontext)
+                              .then((value) => dialogcontext
+                                  .read<CreditorCubit>()
+                                  .getCreditor()
+                                  .then((value) => dialogcontext.pop()));
+                        },
+                        child: const Text('Yes'),
+                      ),
+                      TextButton(
+                        onPressed: () => dialogcontext.pop(),
+                        child: const Text('No'),
+                      ),
+                    ],
+                  ),
+                ),
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                icon: Icons.delete,
+                label: 'Delete',
+                padding: const EdgeInsets.all(5),
+              )
+            ]),
             child: ListTile(
               onTap: () {
                 GetIt.I<CreditorHelper>().creditorId =
@@ -38,7 +82,12 @@ class CreditorList extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: kTertiaryColor,
                     borderRadius: BorderRadius.circular(5)),
-                child: const Icon(CupertinoIcons.person_alt),
+                child: state.creditorList[index].base64Image == null
+                    ? Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Image.asset('assets/no_photo.png'))
+                    : Image.memory(state.creditorList[index].base64Image!,
+                        fit: BoxFit.cover),
               ),
               title: Text(state.creditorList[index].fullname,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(

@@ -7,4 +7,5 @@ class RouteConstants {
   static String menu = 'menu';
   static String register = 'register';
   static String transactionHistory = 'transactionHistory';
+  static String creditorInformation = 'creditorInformation';
 }

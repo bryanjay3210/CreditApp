@@ -1,3 +1,4 @@
+import 'package:credit_app/routes/route_constant.dart';
 import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../utility/const.dart';
-import 'components/creditor_list.dart';
+import 'components/creditor_tile.dart';
 
 class CreditorScreen extends StatefulWidget {
   const CreditorScreen({super.key});
@@ -93,50 +94,53 @@ class _CreditorScreenState extends State<CreditorScreen> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              showDialog<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return Form(
-                    key: creditorKey,
-                    child: AlertDialog(
-                      title: const Text('Add creditor'),
-                      content: TextFormField(
-                        controller: creditorNameCtrl,
-                        decoration:
-                            const InputDecoration(hintText: 'Creditor Name'),
-                        maxLength: 50,
-                        validator: (value) =>
-                            value!.isEmpty ? 'Creditor name is required' : null,
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            textStyle: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          child: const Text('Add'),
-                          onPressed: () {
-                            if (creditorKey.currentState!.validate()) {
-                              context.read<CreditorCubit>().addCreditor(
-                                  fullname: creditorNameCtrl.text,
-                                  context: context);
-                              creditorNameCtrl.clear();
-                            }
-                          },
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            textStyle: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          child: const Text('Cancel'),
-                          onPressed: () {
-                            context.pop();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
+              context
+                  .pushNamed(RouteConstants.creditorInformation)
+                  .then((value) => context.read<CreditorCubit>().getCreditor());
+              // showDialog<void>(
+              //   context: context,
+              //   builder: (BuildContext context) {
+              //     return Form(
+              //       key: creditorKey,
+              //       child: AlertDialog(
+              //         title: const Text('Add creditor'),
+              //         content: TextFormField(
+              //           controller: creditorNameCtrl,
+              //           decoration:
+              //               const InputDecoration(hintText: 'Creditor Name'),
+              //           maxLength: 50,
+              //           validator: (value) =>
+              //               value!.isEmpty ? 'Creditor name is required' : null,
+              //         ),
+              //         actions: <Widget>[
+              //           TextButton(
+              //             style: TextButton.styleFrom(
+              //               textStyle: Theme.of(context).textTheme.labelMedium,
+              //             ),
+              //             child: const Text('Add'),
+              //             onPressed: () {
+              //               if (creditorKey.currentState!.validate()) {
+              //                 context.read<CreditorCubit>().addCreditor(
+              //                     fullname: creditorNameCtrl.text,
+              //                     context: context);
+              //                 creditorNameCtrl.clear();
+              //               }
+              //             },
+              //           ),
+              //           TextButton(
+              //             style: TextButton.styleFrom(
+              //               textStyle: Theme.of(context).textTheme.labelMedium,
+              //             ),
+              //             child: const Text('Cancel'),
+              //             onPressed: () {
+              //               context.pop();
+              //             },
+              //           ),
+              //         ],
+              //       ),
+              //     );
+              //   },
+              // );
             },
             child: const Icon(CupertinoIcons.add),
           ),

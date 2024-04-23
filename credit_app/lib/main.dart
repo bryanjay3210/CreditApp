@@ -4,6 +4,7 @@ import 'package:credit_app/utility/const.dart';
 import 'package:credit_app/view/credit/cubit/credit_cubit.dart';
 import 'package:credit_app/view/credit/cubit/debit_cubit.dart';
 import 'package:credit_app/view/creditor/cubit/creditor_cubit.dart';
+import 'package:credit_app/view/creditor_information/cubit/creditor_information_cubit.dart';
 import 'package:credit_app/view/home/cubit/home_cubit.dart';
 import 'package:credit_app/view/login/cubit/login_cubit.dart';
 import 'package:credit_app/view/profile/cubit/profile_cubit.dart';
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ProfileCubit>(
           create: (BuildContext context) => ProfileCubit(),
+        ),
+        BlocProvider<CreditorInformationCubit>(
+          create: (BuildContext context) => CreditorInformationCubit(),
         ),
       ],
       child: MaterialApp.router(

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:hive/hive.dart';
 
 part 'creditor.g.dart';
@@ -16,9 +18,29 @@ class Creditor extends HiveObject {
   @HiveField(3)
   late double totalBalance;
 
+  @HiveField(4)
+  late String gender;
+
+  @HiveField(5)
+  late String address;
+
+  @HiveField(6)
+  late String contactNo;
+
+  @HiveField(7)
+  late String emailAddress;
+
+  @HiveField(8)
+  late Uint8List? base64Image;
+
   Creditor(
       {required this.fullname,
       required this.userId,
       required this.creditorId,
-      required this.totalBalance});
+      required this.totalBalance,
+      required this.gender,
+      required this.address,
+      required this.contactNo,
+      required this.emailAddress,
+      required this.base64Image});
 }
