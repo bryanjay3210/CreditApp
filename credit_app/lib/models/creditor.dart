@@ -33,6 +33,18 @@ class Creditor extends HiveObject {
   @HiveField(8)
   late Uint8List? base64Image;
 
+  Creditor.fromJson(Map json) {
+    fullname = json['fullname'];
+    userId = json['userId'];
+    creditorId = json['creditorId'];
+    totalBalance = json['totalBalance'];
+    gender = json['gender'];
+    address = json['address'];
+    contactNo = json['contactNo'];
+    emailAddress = json['emailAddress'];
+    base64Image = json['base64Image'];
+  }
+
   Creditor(
       {required this.fullname,
       required this.userId,

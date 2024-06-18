@@ -19,11 +19,17 @@ part 'creditor_information_state.dart';
 class CreditorInformationCubit extends Cubit<CreditorInformationState> {
   CreditorInformationCubit()
       : super(const CreditorInformationState(
-            gender: Gender.Male, isLoading: false, base64Image: null));
+            gender: Gender.Male,
+            isLoading: false,
+            base64Image: null,
+            creditor: null));
 
-  void initData() {
+  void resetData() {
     emit(state.copyWith(
-        isLoading: false, base64Image: null, gender: Gender.Male));
+        isLoading: false,
+        base64Image: null,
+        gender: Gender.Male,
+        creditor: null));
   }
 
   Future<void> addCreditor(
@@ -60,11 +66,51 @@ class CreditorInformationCubit extends Cubit<CreditorInformationState> {
     );
   }
 
+  Future<Creditor> displayFromEdit({required String creditorId}) async {
+    final box = Hive.box('creditor');
+    Creditor creditor = box.values
+        .toList()
+        .where((element) => element.creditorId == creditorId)
+        .first as Creditor;
+    emit(state.copyWith(creditor: creditor));
+    return creditor;
+  }
+
   void changeGender(Gender gender) {
     emit(state.copyWith(gender: gender));
   }
 
-  Future<void> setImage({required Uint8List base64Image}) async {
+  void updateCreditor(
+      {required Creditor creditor, required BuildContext context}) {
+    try {
+      Creditor creditorData = Hive.box('creditor')
+          .values
+          .toList()
+          .where((element) => element.creditorId == creditor.creditorId)
+          .first as Creditor;
+      creditorData.base64Image = creditor.base64Image;
+      creditorData.fullname = creditor.fullname;
+      creditorData.gender = creditor.gender;
+      creditorData.address = creditor.address;
+      creditorData.contactNo = creditor.contactNo;
+      creditorData.emailAddress = creditor.emailAddress;
+      creditorData.save();
+      showSnackBar(
+          context: context,
+          title: 'Success',
+          message: 'Creditor has been updated!',
+          contentType: ContentType.success);
+      context.pop();
+    } catch (ex) {
+      showSnackBar(
+          context: context,
+          title: 'Error',
+          message: 'Something went wrong',
+          contentType: ContentType.failure);
+    }
+  }
+
+  Future<void> setImage({required Uint8List? base64Image}) async {
     emit(state.copyWith(isLoading: true));
     emit(state.copyWith(isLoading: false, base64Image: base64Image));
     GetIt.I<CreditorHelper>().base64Image = base64Image;

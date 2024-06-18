@@ -77,7 +77,11 @@ class AppRoutes {
         name: RouteConstants.creditorInformation,
         path: '/creditorInformation',
         pageBuilder: (context, state) {
-          return const CupertinoPage(child: CreditorInformation());
+          return CupertinoPage(
+              child: CreditorInformation(
+            creditorId: state.queryParameters['creditorId'],
+            isEdit: bool.parse(state.queryParameters['isEdit']!),
+          ));
         },
       ),
     ],

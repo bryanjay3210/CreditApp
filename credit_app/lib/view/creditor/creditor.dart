@@ -94,9 +94,12 @@ class _CreditorScreenState extends State<CreditorScreen> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              context
-                  .pushNamed(RouteConstants.creditorInformation)
-                  .then((value) => context.read<CreditorCubit>().getCreditor());
+              context.pushNamed(RouteConstants.creditorInformation,
+                  queryParameters: {
+                    'creditorId': null,
+                    'isEdit': 'false'
+                  }).then(
+                  (value) => context.read<CreditorCubit>().getCreditor());
               // showDialog<void>(
               //   context: context,
               //   builder: (BuildContext context) {
