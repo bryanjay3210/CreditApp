@@ -1,4 +1,5 @@
 import 'package:credit_app/routes/route_constant.dart';
+import 'package:credit_app/utility/logger.dart';
 import 'package:credit_app/view/adjustment/adjustment.dart';
 import 'package:credit_app/view/credit/credit.dart';
 import 'package:credit_app/view/creditor/creditor.dart';
@@ -9,6 +10,7 @@ import 'package:credit_app/view/menu/menu.dart';
 import 'package:credit_app/view/register/register.dart';
 import 'package:credit_app/view/transaction/transaction.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
@@ -79,8 +81,8 @@ class AppRoutes {
         pageBuilder: (context, state) {
           return CupertinoPage(
               child: CreditorInformation(
-            creditorId: state.pathParameters['creditorId'],
-            isEdit: bool.parse(state.pathParameters['isEdit']!),
+            creditorId: state.uri.queryParameters['creditorId'],
+            isEdit: bool.parse(state.uri.queryParameters['isEdit']!),
           ));
         },
       ),

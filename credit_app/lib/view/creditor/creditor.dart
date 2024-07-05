@@ -96,7 +96,7 @@ class _CreditorScreenState extends State<CreditorScreen> {
             onPressed: () {
               context.pushNamed(RouteConstants.creditorInformation,
                   queryParameters: {
-                    'creditorId': null,
+                    'creditorId': '',
                     'isEdit': 'false'
                   }).then(
                   (value) => context.read<CreditorCubit>().getCreditor());
