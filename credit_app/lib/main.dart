@@ -68,9 +68,7 @@ class MyApp extends StatelessWidget {
             //     ),
             ),
         debugShowCheckedModeBanner: false,
-        routeInformationParser:
-            GetIt.I<AppRoutes>().routes.routeInformationParser,
-        routerDelegate: GetIt.I<AppRoutes>().routes.routerDelegate,
+        routerConfig: GetIt.I<AppRoutes>().routes,
       ),
     );
   }

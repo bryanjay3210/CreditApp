@@ -79,8 +79,8 @@ class AppRoutes {
         pageBuilder: (context, state) {
           return CupertinoPage(
               child: CreditorInformation(
-            creditorId: state.queryParameters['creditorId'],
-            isEdit: bool.parse(state.queryParameters['isEdit']!),
+            creditorId: state.pathParameters['creditorId'],
+            isEdit: bool.parse(state.pathParameters['isEdit']!),
           ));
         },
       ),
